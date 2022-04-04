@@ -36,7 +36,7 @@ module.exports = {
   env: envVars.NODE_ENV,
   port: 3001,
   mongoose: {
-    url: 'mongodb://127.0.0.1:27017/node-boilerplate' + (envVars.NODE_ENV === 'test' ? '-test' : ''),
+    url: `mongodb://127.0.0.1:27017/node-boilerplate${envVars.NODE_ENV === 'test' ? '-test' : ''}`,
     options: {
       useCreateIndex: true,
       useNewUrlParser: true,
