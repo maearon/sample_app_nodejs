@@ -439,3 +439,40 @@ Contributions are more than welcome! Please check out the [contributing guide](C
 ## License
 
 [MIT](LICENSE)
+
+node-boilerplate> db.users.find().limit(1)
+[
+  {
+    _id: ObjectId("624a52224f2baf43ba0e2f7c"),
+    role: 'admin',
+    isEmailVerified: true,
+    name: 'Example User',
+    email: 'example@railstutorial.org',
+    password: '$2a$08$FRw.nF76cCtONtbbf2zfdOonuuOXp.O1baAJdWABvGH.8nnqWt0SG',
+    createdAt: ISODate("2022-04-04T02:04:18.837Z"),
+    updatedAt: ISODate("2022-04-05T06:31:32.527Z"),
+    __v: 0
+  }
+]
+
+mongosh
+show databases
+use node-boilerplate
+db
+db.tokens.insertOne()
+db.tokens.insertMany()
+node-boilerplate> db.tokens
+node-boilerplate.tokens
+show collections
+let name = "shaul"
+name
+node-boilerplate.tokens.find()
+help
+exit
+cls
+https://github.com/iamshaunjp/complete-mongodb
+https://www.youtube.com/watch?v=bJSj1a84I20&list=PL4cUxeGkcC9h77dJ-QJlwGlZlTd4ecZOA&index=4
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+https://www.mongodb.com/docs/compass/current/install/
+
+use MongoDB Compass set role to admin and isEmailVerified to true
