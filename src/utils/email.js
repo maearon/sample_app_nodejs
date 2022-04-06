@@ -13,13 +13,10 @@ const sendMail = async (options) => {
   });
 
   // 2 Render HTML Based on ejs template
-  const html = await ejs.renderFile(
-    `${__dirname}/../views/email/${options.template}`,
-    {
-      user: options.user,
-      url: options.url,
-    }
-  );
+  const html = await ejs.renderFile(`${__dirname}/../views/email/${options.template}`, {
+    user: options.user,
+    url: options.url,
+  });
 
   // console.log(html);
 
