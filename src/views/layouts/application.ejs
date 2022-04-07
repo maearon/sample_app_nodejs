@@ -1,23 +1,19 @@
 <html><head>
-  <title>Ruby on Rails Tutorial Sample App</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="csrf-param" content="authenticity_token">
-<meta name="csrf-token" content="YIL1GjVE9yZL3ZuJyxHzb1hk5OLa7l3NbmsJQrnurhxzTROE6KuKAsWiBNwJ0wr3gVz996FGjxlnJvmC5fIkRg">
-  
+    
+    
+    
+    
 
-  <link rel="stylesheet" href="https://railstutorialapi.herokuapp.com/assets/application-957e878abe033d4baa1104d1a928d12f137ef6d3f879096753ca81675fc9c050.css" media="all" data-turbolinks-track="reload">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="/packs/js/application-4af7c2b615a0a2426731.js" data-turbolinks-track="reload"></script>
-  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon-7b2e0569ff8c4db2633acd2109c20cdbf9c168e14718d6600a6cfc3e4e0a95fd.ico">
+    
+
+  <link rel="stylesheet" media="all" href="https://mysterious-atoll-47182.herokuapp.com/assets/application-957e878abe033d4baa1104d1a928d12f137ef6d3f879096753ca81675fc9c050.css" data-turbolinks-track="reload">
+  <script src="https://mysterious-atoll-47182.herokuapp.com/packs/js/application-6634062aff8ca9c36b8b.js" data-turbolinks-track="reload"></script>
   <!--[if lt IE 9]>
 <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
 </script>
 <![endif]-->
 
-</head>
-
+<title>Ruby on Rails Tutorial Sample App</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="csrf-param" content="authenticity_token"><meta name="csrf-token" content="iv6LfClfc10Xef7270rylHSTkqCyB9JD9zv9M2CvFG3mwucrykZZvRL9AYGTVOwJJvPW4V6T2zrmqDvice9T0w=="></head>
 <body>
   <header class="navbar navbar-fixed-top navbar-inverse">
 <div class="container">
@@ -34,169 +30,26 @@
     <ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <li><a href="/">Home</a></li>
       <li><a href="/help">Help</a></li>
-        <li><a href="/users">Users</a></li>
-        <li><a href="/users/1">Profile</a></li>
-        <li><a href="/users/1/edit">Settings</a></li>
-        <li><a rel="nofollow" data-method="delete" href="/logout">Log out</a></li>
+        <li><a href="/login">Log in</a></li>
     </ul>
   </nav>
 </div>
 </header>
 
   <div class="container">
-      <div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <a href="/users/1"><img alt="Example User" class="gravatar" src="https://secure.gravatar.com/avatar/bebfcf57d6d8277d806a9ef3385c078d?s=50"></a>
-<h1>Example User</h1>
-<span><a href="/users/1">view my profile</a></span>
-<span>70 microposts</span>
+      <div class="center jumbotron">
+  <h1>Welcome to the Sample App</h1>
 
-    </section>
-    <section class="stats">
-      <div class="stats">
-<a href="/users/1/following">
-  <strong id="following" class="stat">
-    46
-  </strong>
-  following
-</a>
-<a href="/users/1/followers">
-  <strong id="followers" class="stat">
-    36
-  </strong>
-  followers
-</a>
+  <h2>
+    This is the home page for the
+    <a href="https://www.railstutorial.org/">Ruby on Rails Tutorial</a>
+    sample application.
+  </h2>
+
+  <a class="btn btn-lg btn-primary" href="/signup">Sign up now!</a>
 </div>
 
-    </section>
-    <section class="micropost_form">
-      <form enctype="multipart/form-data" action="/microposts" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="YIL1GjVE9yZL3ZuJyxHzb1hk5OLa7l3NbmsJQrnurhxzTROE6KuKAsWiBNwJ0wr3gVz996FGjxlnJvmC5fIkRg">
-
-<div class="field">
-  <textarea placeholder="Compose new micropost..." name="micropost[content]" id="micropost_content"></textarea>
-</div>
-<input type="submit" name="commit" value="Post" class="btn btn-primary" data-disable-with="Post">
-<span class="image">
-  <input accept="image/jpeg,image/gif,image/png" type="file" name="micropost[image]" id="micropost_image">
-</span>
-</form>
-<script type="text/javascript">
-$("#micropost_image").bind("change", function() {
-  const size_in_megabytes = this.files[0].size/1024/1024;
-  if (size_in_megabytes > 5) {
-    alert("Maximum file size is 5MB. Please choose a smaller file.");
-    $("#micropost_image").val("");
-  }
-});
-</script>
-
-    </section>
-  </aside>
-  <div class="col-md-8">
-    <h3>Micropost Feed</h3>
-      <ol class="microposts">
-  <li id="micropost-487">
-<a href="/users/1"><img alt="Example User" class="gravatar" src="https://secure.gravatar.com/avatar/bebfcf57d6d8277d806a9ef3385c078d?s=50"></a>
-<span class="user"><a href="/users/1">Example User</a></span>
-<span class="content">
-  sd
-  
-</span>
-<span class="timestamp">
-  Posted 11 days ago.
-    <a data-confirm="You sure?" rel="nofollow" data-method="delete" href="/microposts/487">delete</a>
-</span>
-</li>
-<li id="micropost-452">
-<a href="/users/1"><img alt="Example User" class="gravatar" src="https://secure.gravatar.com/avatar/bebfcf57d6d8277d806a9ef3385c078d?s=50"></a>
-<span class="user"><a href="/users/1">Example User</a></span>
-<span class="content">
-  sadsad
-  
-</span>
-<span class="timestamp">
-  Posted 4 months ago.
-    <a data-confirm="You sure?" rel="nofollow" data-method="delete" href="/microposts/452">delete</a>
-</span>
-</li>
-<li id="micropost-451">
-<a href="/users/1"><img alt="Example User" class="gravatar" src="https://secure.gravatar.com/avatar/bebfcf57d6d8277d806a9ef3385c078d?s=50"></a>
-<span class="user"><a href="/users/1">Example User</a></span>
-<span class="content">
-  sdsad
-  
-</span>
-<span class="timestamp">
-  Posted 4 months ago.
-    <a data-confirm="You sure?" rel="nofollow" data-method="delete" href="/microposts/451">delete</a>
-</span>
-</li>
-<li id="micropost-450">
-<a href="/users/1"><img alt="Example User" class="gravatar" src="https://secure.gravatar.com/avatar/bebfcf57d6d8277d806a9ef3385c078d?s=50"></a>
-<span class="user"><a href="/users/1">Example User</a></span>
-<span class="content">
-  sadsadsad
-  
-</span>
-<span class="timestamp">
-  Posted 4 months ago.
-    <a data-confirm="You sure?" rel="nofollow" data-method="delete" href="/microposts/450">delete</a>
-</span>
-</li>
-<li id="micropost-449">
-<a href="/users/1"><img alt="Example User" class="gravatar" src="https://secure.gravatar.com/avatar/bebfcf57d6d8277d806a9ef3385c078d?s=50"></a>
-<span class="user"><a href="/users/1">Example User</a></span>
-<span class="content">
-  dsf
-  
-</span>
-<span class="timestamp">
-  Posted 4 months ago.
-    <a data-confirm="You sure?" rel="nofollow" data-method="delete" href="/microposts/449">delete</a>
-</span>
-</li>
-
-</ol>
-  <ul class="pagination">
-  
-  
-      <li class="page active">
-<a href="javascript:void(0)">1</a>
-</li>
-
-      <li class="page">
-<a rel="next" href="/?page=2">2</a>
-</li>
-
-      <li class="page">
-<a href="/?page=3">3</a>
-</li>
-
-      <li class="page">
-<a href="/?page=4">4</a>
-</li>
-
-      <li class="page">
-<a href="/?page=5">5</a>
-</li>
-
-      <li class="page gap disabled"><a href="javascript:void(0)">…</a></li>
-
-  
-<li class="next">
-  <a rel="next" href="/?page=2">Next ›</a>
-</li>
-
-    <li class="last">
-  <a href="/?page=24">Last »</a>
-</li>
-
-</ul>
-
-
-  </div>
-</div>
+<a href="https://rubyonrails.org/"><img alt="Rails logo" width="200" src="https://mysterious-atoll-47182.herokuapp.com/assets/rails-27b4717692698a3e7b0be9fd2cd1c151471027fef6eb719d63a0b8e01ae71c15.svg"></a>
 
     <footer class="footer">
 <small>
@@ -214,4 +67,6 @@ $("#micropost_image").bind("change", function() {
 
     
   </div>
+
+
 </body></html>
