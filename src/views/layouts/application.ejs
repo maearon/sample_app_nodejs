@@ -1,72 +1,23 @@
-<html><head>
-    
-    
-    
-    
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Pivotal Search</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  <link rel="stylesheet" media="all" href="https://mysterious-atoll-47182.herokuapp.com/assets/application-957e878abe033d4baa1104d1a928d12f137ef6d3f879096753ca81675fc9c050.css" data-turbolinks-track="reload">
-  <script src="https://mysterious-atoll-47182.herokuapp.com/packs/js/application-6634062aff8ca9c36b8b.js" data-turbolinks-track="reload"></script>
-  <!--[if lt IE 9]>
-<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
-</script>
-<![endif]-->
+    <!-- styles -->
+    <link href="stylesheets/style.css" rel="stylesheet">
 
-<title>Ruby on Rails Tutorial Sample App</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="csrf-param" content="authenticity_token"><meta name="csrf-token" content="iv6LfClfc10Xef7270rylHSTkqCyB9JD9zv9M2CvFG3mwucrykZZvRL9AYGTVOwJJvPW4V6T2zrmqDvice9T0w=="></head>
-<body>
-  <header class="navbar navbar-fixed-top navbar-inverse">
-<div class="container">
-  <a id="logo" href="/">sample app</a>
-  <nav>
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-    <ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <li><a href="/">Home</a></li>
-      <li><a href="/help">Help</a></li>
-        <li><a href="/login">Log in</a></li>
-    </ul>
-  </nav>
-</div>
-</header>
-
-  <div class="container">
-      <div class="center jumbotron">
-  <h1>Welcome to the Sample App</h1>
-
-  <h2>
-    This is the home page for the
-    <a href="https://www.railstutorial.org/">Ruby on Rails Tutorial</a>
-    sample application.
-  </h2>
-
-  <a class="btn btn-lg btn-primary" href="/signup">Sign up now!</a>
-</div>
-
-<a href="https://rubyonrails.org/"><img alt="Rails logo" width="200" src="https://mysterious-atoll-47182.herokuapp.com/assets/rails-27b4717692698a3e7b0be9fd2cd1c151471027fef6eb719d63a0b8e01ae71c15.svg"></a>
-
-    <footer class="footer">
-<small>
-  The <a href="https://www.railstutorial.org/">Ruby on Rails Tutorial</a>
-  by <a href="https://www.michaelhartl.com/">Michael Hartl</a>
-</small>
-<nav>
-  <ul>
-    <li><a href="/about">About</a></li>
-    <li><a href="/contact">Contact</a></li>
-    <li><a href="https://news.railstutorial.org/">News</a></li>
-  </ul>
-</nav>
-</footer>
-
-    
-  </div>
-
-
-</body></html>
+  </head>
+  <body>
+    <%- include('_header.ejs') %>
+    <%- body %>
+    <%- include('_footer.ejs') %>
+  </body>
+</html>
