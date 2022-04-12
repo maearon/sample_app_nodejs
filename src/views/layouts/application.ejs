@@ -1,23 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8">
-    <title>Pivotal Search</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <title>Ruby on Rails Tutorial Sample App</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta
+      name="csrf-token"
+      content="lMiubBA+5OhK7OKxNcRVkDhq3E8PxHHD3/anCfdemhuPqZEIettLRe0rADJjumoTHYQipGjdzQewz5YczigDRQ=="
+    />
 
-    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <link
+      rel="stylesheet"
+      media="all"
+      href="https://mysterious-atoll-47182.herokuapp.com/assets/application-957e878abe033d4baa1104d1a928d12f137ef6d3f879096753ca81675fc9c050.css"
+      data-turbolinks-track="reload"
+    />
+    <script
+      src="https://mysterious-atoll-47182.herokuapp.com/packs/js/application-6634062aff8ca9c36b8b.js"
+      data-turbolinks-track="reload"
+    ></script>
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
     <![endif]-->
-
-    <!-- styles -->
-    <link href="stylesheets/style.css" rel="stylesheet">
-
   </head>
   <body>
     <%- include('_header.ejs') %>
-    <%- body %>
-    <%- include('_footer.ejs') %>
+
+    <div class="container"><%- body %> <%- include('_footer.ejs') %></div>
   </body>
 </html>
