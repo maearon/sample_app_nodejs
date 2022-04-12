@@ -25,12 +25,12 @@ app.use(expressLayouts);
 // Set custom default layout
 app.set('layout', 'layouts/application');
 app.use('/', function (req, res) {
-  const locals = {
-    title: 'Page Title',
-    description: 'Page Description',
-    header: 'Page Header',
-  };
-  res.render('static_pages/home', locals);
+  // const locals = {
+  //   title: 'Page Title',
+  //   description: 'Page Description',
+  //   header: 'Page Header',
+  // };
+  res.render('static_pages/home');
 });
 
 app.set('views', path.join(__dirname, 'views'));
