@@ -25,6 +25,9 @@ app.use(expressLayouts);
 // Set custom default layout
 app.set('layout', 'layouts/application');
 
+// Serving static files in Express
+app.use('/', express.static(path.join(__dirname, 'assets')));
+
 app.set('views', path.join(__dirname, 'views'));
 
 if (config.env !== 'test') {
