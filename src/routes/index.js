@@ -1,9 +1,9 @@
 const express = require('express');
 const staticPage = require('./staticPage.route');
-const authRoute = require('./auth.route');
-const userRoute = require('./user.route');
-const docsRoute = require('./docs.route');
-const config = require('../../config/config');
+const authRoute = require('./v1/auth.route');
+const userRoute = require('./v1/user.route');
+const docsRoute = require('./v1/docs.route');
+const config = require('../config/config');
 
 const router = express.Router();
 
