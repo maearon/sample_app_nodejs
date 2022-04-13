@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync');
 
 const home = catchAsync(async (req, res) => {
   const locals = {
-    title: 'Page Title',
+    title: 'Welcome to the Sample App',
     description: 'Page Description',
     header: 'Page Header',
   };
