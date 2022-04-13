@@ -24,14 +24,6 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 // Set custom default layout
 app.set('layout', 'layouts/application');
-app.use('/', function (req, res) {
-  // const locals = {
-  //   title: 'Page Title',
-  //   description: 'Page Description',
-  //   header: 'Page Header',
-  // };
-  res.render('static_pages/home');
-});
 
 app.set('views', path.join(__dirname, 'views'));
 
@@ -77,19 +69,7 @@ if (config.env === 'production') {
 }
 
 // v1 api routes
-app.use('/v1', routes);
-// about page
-// app.use('/', function (req, res) {
-//   const data = { name: 'Akashdeep', hobbies: ['playing football', 'playing chess', 'cycling'] };
-//   res.render('layouts/application', { title: 'The index page!' });
-// });
-// app.use('/', routes);
-// app.use('/about', function (req, res) {
-//   res.render('layouts/static_pages/about');
-// });
-// app.use('/', function (req, res) {
-//   res.render('layouts/static_pages/home', { title: 'The index page!' });
-// });
+app.use('/', routes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
