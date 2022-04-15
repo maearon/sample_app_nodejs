@@ -8,7 +8,7 @@ router.get('/', staticPageController.home);
 router.get('/help', staticPageController.help);
 router.get('/about', staticPageController.about);
 router.get('/contact', staticPageController.contact);
-router.get('/login', sessionController.login);
+router.get('/login', sessionController.newSession);
 router.post('/login', sessionController.create);
 
 module.exports = router;

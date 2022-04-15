@@ -61,7 +61,7 @@ app.use(compression());
 app.use(
   '*',
   cors({
-    origin: 'http://*',
+    origin: 'http://localhost:3000',
     credentials: true,
   })
 );
