@@ -36,7 +36,11 @@ if (config.env !== 'test') {
 }
 
 // set security HTTP headers
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 // parse json request body
 app.use(express.json());
@@ -57,7 +61,7 @@ app.use(compression());
 app.use(
   '*',
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://*',
     credentials: true,
   })
 );
