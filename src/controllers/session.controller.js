@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
-// const { userService } = require('../services');
+const { userService } = require('../services');
 // const { User } = require('../models');
 // const { authService } = require('../services');
 
@@ -14,7 +14,7 @@ const newSession = catchAsync(async (req, res) => {
 });
 
 const create = catchAsync(async (req, res) => {
-  // const user = await userService.createUser(req.body.session);
+  const user = await userService.createUser(req.body.session);
   // const user = User.findOne(req.body.session.email.toLowerCase);
   // if (user && user.PasswordDigest(...req.body.session.password)) {
   //   if (user.isEmailVerified?) {
@@ -35,8 +35,7 @@ const create = catchAsync(async (req, res) => {
   //   throw new ApiError(httpStatus.BAD_REQUEST, 'Email has already been taken');
   // }
   // return User.create(userBody);
-  // res.render('static_pages/home', user);
-
+  res.render('static_pages/home', user);
 });
 
 const destroy = (req, res) => {
