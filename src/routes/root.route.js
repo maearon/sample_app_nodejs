@@ -11,4 +11,28 @@ router.get('/contact', staticPageController.contact);
 router.get('/login', sessionController.newSession);
 router.post('/login', sessionController.create);
 
+router.get('/users', staticPageController.home);
+// router.post('/users', staticPageController.home);
+// router.get('/users/new', staticPageController.home);
+router.get('/users/:id/edit', staticPageController.home);
+router.get('/users/:id', staticPageController.home);
+router.patch('/users/:id', staticPageController.home);
+router.put('/users/:id', staticPageController.home);
+router.delete('/users/:id', staticPageController.home);
+
+router.get('/users/:user_id/comments', staticPageController.home);
+router.post('/users/:user_id/comments', staticPageController.home);
+router.get('/users/:user_id/comments/new', staticPageController.home);
+router.get('/users/:user_id/comments/:id/edit', staticPageController.home);
+router.get('/users/:user_id/comments/:id', staticPageController.home);
+router.patch('/users/:user_id/comments/:id', staticPageController.home);
+router.put('/users/:user_id/comments/:id', staticPageController.home);
+router.delete('/users/:user_id/comments/:id', staticPageController.home);
+
+router.post('/relationships/:id', staticPageController.home);
+router.delete('/relationships/:id', staticPageController.home);
+
+router.get('/users/:user_id/following', staticPageController.home);
+router.get('/users/:user_id/followers', staticPageController.home);
+
 module.exports = router;
