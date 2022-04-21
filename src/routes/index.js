@@ -1,7 +1,7 @@
 const express = require('express');
-const staticPage = require('./staticPage.route');
-const authRoute = require('./v1/auth.route');
-const userRoute = require('./v1/user.route');
+const root = require('./root.route');
+const apiAuthRoute = require('./v1/auth.route');
+const apiUserRoute = require('./v1/user.route');
 const docsRoute = require('./v1/docs.route');
 const config = require('../config/config');
 
@@ -10,16 +10,20 @@ const router = express.Router();
 const defaultRoutes = [
   {
     path: '/v1/auth',
-    route: authRoute,
+    route: apiAuthRoute,
   },
   {
     path: '/v1/users',
-    route: userRoute,
+    route: apiUserRoute,
   },
   {
     path: '/',
-    route: staticPage,
+    route: root,
   },
+  // {
+  //   path: '/users',
+  //   route: staticPage,
+  // },
 ];
 
 const devRoutes = [
