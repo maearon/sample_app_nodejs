@@ -16,7 +16,7 @@ router.get('/users', userController.index);
 // router.post('/users', staticPageController.home);
 // router.get('/users/new', staticPageController.home);
 router.get('/users/:id/edit', staticPageController.home);
-router.get('/users/:id', staticPageController.home);
+router.get('/users/:id', userController.show);
 router.patch('/users/:id', staticPageController.home);
 router.put('/users/:id', staticPageController.home);
 router.delete('/users/:id', staticPageController.home);
