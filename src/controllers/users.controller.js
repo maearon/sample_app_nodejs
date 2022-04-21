@@ -12,6 +12,14 @@ const show = (req, res) => {
   res.render('users/show');
 };
 
+const following = (req, res) => {
+  res.render('users/show_follow');
+};
+
+const followers = (req, res) => {
+  res.render('users/show_follow');
+};
+
 const newUser = catchAsync(async (req, res) => {
   res.render('users/new');
 });
@@ -43,4 +51,6 @@ module.exports = {
   edit,
   update,
   destroy,
+  following,
+  followers,
 };

@@ -33,7 +33,7 @@ router.delete('/users/:user_id/microposts/:id', staticPageController.home);
 router.post('/relationships/:id', staticPageController.home);
 router.delete('/relationships/:id', staticPageController.home);
 
-router.get('/users/:user_id/following', staticPageController.home);
-router.get('/users/:user_id/followers', staticPageController.home);
+router.get('/users/:user_id/following', userController.following);
+router.get('/users/:user_id/followers', userController.followers);
 
 module.exports = router;
