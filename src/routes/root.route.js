@@ -1,6 +1,7 @@
 const express = require('express');
 const staticPageController = require('../controllers/staticPage.controller');
 const sessionController = require('../controllers/session.controller');
+const userController = require('../controllers/users.controller');
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ router.get('/contact', staticPageController.contact);
 router.get('/login', sessionController.newSession);
 router.post('/login', sessionController.create);
 
-router.get('/users', staticPageController.home);
+router.get('/users', userController.index);
 // router.post('/users', staticPageController.home);
 // router.get('/users/new', staticPageController.home);
 router.get('/users/:id/edit', staticPageController.home);
