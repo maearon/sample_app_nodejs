@@ -25,7 +25,7 @@ const defaultRoutes = [
 const devRoutes = [
   // routes available only in development mode
   {
-    path: '/docs',
+    path: '/rails/info/routes',
     route: docsRoute,
   },
 ];
