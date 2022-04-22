@@ -1,0 +1,16 @@
+const newPasswordReset = (req, res) => {
+  res.render('password_resets/new');
+};
+
+const edit = (req, res) => {
+  const { id: token } = req.params; // destructuring with an alias
+  const { email } = req.query;
+  console.log(token);
+  console.log(email);
+  res.render('password_resets/edit');
+};
+
+module.exports = {
+  newPasswordReset,
+  edit,
+};

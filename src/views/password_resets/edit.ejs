@@ -1,0 +1,29 @@
+<h1>Reset password</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <form action="/password_resets/bhHalvXfrJz5pAePDIqfIA" accept-charset="UTF-8" method="post">
+      <input type="hidden" name="_method" value="patch" /><input
+        type="hidden"
+        name="authenticity_token"
+        value="VFJGl0QZArLM7v2l65+jFW3r4QQuribJcZb4LkiYVAQby5mDPRcKaUsQjAHNfb+O/AnPL/dDC/Tk6fcQx31EDw=="
+      />
+
+      <input type="hidden" name="email" id="email" value="sminzhz@gmail.com" />
+
+      <label for="user_password">Password</label>
+      <input class="form-control" type="password" name="user[password]" id="user_password" />
+
+      <label for="user_password_confirmation">Confirmation</label>
+      <input class="form-control" type="password" name="user[password_confirmation]" id="user_password_confirmation" />
+
+      <input
+        type="submit"
+        name="commit"
+        value="Update password"
+        class="btn btn-primary"
+        data-disable-with="Update password"
+      />
+    </form>
+  </div>
+</div>
