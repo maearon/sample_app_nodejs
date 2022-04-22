@@ -17,6 +17,8 @@ const create = catchAsync(async (req, res) => {
   const { email, password } = req.body.session;
   // eslint-disable-next-line no-console
   console.log(req.body);
+  // http://expressjs.com/en/resources/middleware/cookie-session.html
+  // https://www.npmjs.com/package/express-session
   const user = await authService.loginUserWithEmailAndPassword(email, password);
   const tokens = await tokenService.generateAuthTokens(user);
   res.send({ user, tokens });
