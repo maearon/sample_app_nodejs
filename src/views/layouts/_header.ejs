@@ -1,4 +1,4 @@
-<!-- <header class="navbar navbar-fixed-top navbar-inverse">
+<header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
     <a id="logo" href="/">sample app</a>
     <nav>
@@ -23,8 +23,8 @@
       </ul>
     </nav>
   </div>
-</header> -->
-<header class="navbar navbar-fixed-top navbar-inverse">
+</header>
+<!-- <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
     <a id="logo" href="/">sample app</a>
     <nav>
@@ -46,10 +46,18 @@
         <li><a href="/">Home</a></li>
         <li><a href="/help">Help</a></li>
         <li><a href="/users">Users</a></li>
-        <li><a href="/users/1">Profile</a></li>
-        <li><a href="/users/1/edit">Settings</a></li>
-        <li><a rel="nofollow" data-method="delete" href="/logout">Log out</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Account <b class="caret"></b> </a>
+          <ul class="dropdown-menu">
+            <li><a href="/users/118">Profile</a></li>
+            <li><a href="/users/118/edit">Settings</a></li>
+            <li class="divider"></li>
+            <li>
+              <a rel="nofollow" data-method="delete" href="/logout">Log out</a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
   </div>
-</header>
+</header> -->
