@@ -11,5 +11,8 @@
     "turbolinks",
     "UTBZW",
     "ZXVs"
-  ]
+  ],
+  // File is a CommonJS module; it may be converted to an ES module.ts(80001)
+  // https://github.com/microsoft/vscode/issues/47299
+  "javascript.validate.enable": false
 }
