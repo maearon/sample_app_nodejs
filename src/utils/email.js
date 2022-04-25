@@ -1,6 +1,6 @@
 const nodeMailer = require('nodemailer');
 const ejs = require('ejs');
-const htmlToText = require('html-to-text');
+// const htmlToText = require('html-to-text');
 
 const sendMail = async (options) => {
   // 1 Create Transportor

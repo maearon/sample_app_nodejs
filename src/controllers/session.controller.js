@@ -21,7 +21,11 @@ const create = catchAsync(async (req, res) => {
   // https://www.npmjs.com/package/express-session
   const user = await authService.loginUserWithEmailAndPassword(email, password);
   const tokens = await tokenService.generateAuthTokens(user);
-  res.send({ user, tokens });
+  // eslint-disable-next-line no-console
+  console.log(tokens);
+  // res.send({ user, tokens });
+  req.flash('user', 'Please check your email to activate your account.');
+  res.status(httpStatus.OK).render('static_pages/home');
 });
 
 const destroy = (req, res) => {

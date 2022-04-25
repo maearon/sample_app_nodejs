@@ -1,4 +1,7 @@
 const express = require('express');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -14,9 +17,26 @@ const { jwtStrategy } = require('./config/passport');
 const { authLimiter } = require('./middlewares/rateLimiter');
 const routes = require('./routes');
 const { errorConverter, errorHandler } = require('./middlewares/error');
+const { fullTitle, fullFlash } = require('./middlewares/appHelper');
 const ApiError = require('./utils/ApiError');
 
 const app = express();
+
+// This allows us to pass data from the form
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Set Cookie Parser, sessions and flash
+app.use(cookieParser('NotSoSecret'));
+app.use(
+  session({
+    secret: 'something',
+    cookie: { maxAge: 60000 },
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use(flash());
 
 // view engine setup
 app.set('view engine', 'ejs');
@@ -72,7 +92,7 @@ passport.use('jwt', jwtStrategy);
 
 // limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
-  app.use('/v1/auth', authLimiter);
+  app.all('/v1/auth', authLimiter);
 }
 
 // v1 api routes
@@ -85,6 +105,8 @@ app.use((req, res, next) => {
 
 // convert error to ApiError, if needed
 app.use(errorConverter);
+app.use(fullTitle);
+app.use(fullFlash);
 
 // handle error
 app.use(errorHandler);

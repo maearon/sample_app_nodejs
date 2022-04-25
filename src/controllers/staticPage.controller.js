@@ -2,12 +2,10 @@ const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 
 const home = catchAsync(async (req, res) => {
-  const locals = {
-    title: 'Welcome to the Sample App',
-    description: 'Page Description',
-    header: 'Page Header',
-  };
-  res.status(httpStatus.OK).render('static_pages/home', locals);
+  // Set a flash name and pass it to the home page.
+  // If empty, we won't display. That's handled by EJS.
+  const userName = req.flash('user');
+  res.status(httpStatus.OK).render('static_pages/home', { userName });
 });
 
 const help = (req, res) => {

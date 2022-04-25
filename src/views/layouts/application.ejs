@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Ruby on Rails Tutorial Sample App</title>
+    <title><%= locals.title %></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-param" content="authenticity_token" />
@@ -28,7 +28,7 @@
   <body>
     <%- include('_header.ejs') %>
     <div class="container">
-      <% if(locals.title === 'Welcome to the Sample App') { %>
+      <% if(1 === 1) { %>
         <div class="alert alert-info">Please check your email to activate your account.</div>
       <% } %> 
       <%- body %> 
