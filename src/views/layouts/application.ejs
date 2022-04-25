@@ -28,6 +28,9 @@
   <body>
     <%- include('_header.ejs') %>
     <div class="container">
+      <% if(locals.title === 'Welcome to the Sample App') { %>
+        <div class="alert alert-info">Please check your email to activate your account.</div>
+      <% } %> 
       <%- body %> 
       <%- include('_footer.ejs') %>
     </div>
