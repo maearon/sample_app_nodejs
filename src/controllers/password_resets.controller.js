@@ -9,7 +9,10 @@ const edit = (req, res) => {
   console.log(token);
   // eslint-disable-next-line no-console
   console.log(email);
-  res.render('password_resets/edit');
+  res.render('password_resets/edit', {
+    token,
+    email
+  });
 };
 
 module.exports = {

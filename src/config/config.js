@@ -34,9 +34,9 @@ if (error) {
 
 module.exports = {
   env: envVars.NODE_ENV,
-  port: 3001,
+  port: envVars.PORT,
   mongoose: {
-    url: `mongodb://127.0.0.1:27017/node-boilerplate${envVars.NODE_ENV === 'test' ? '-test' : ''}`,
+    url: envVars.MONGODB_URL,
     options: {
       useCreateIndex: true,
       useNewUrlParser: true,
@@ -44,21 +44,21 @@ module.exports = {
     },
   },
   jwt: {
-    secret: 'thisisasamplesecret',
-    accessExpirationMinutes: 30,
-    refreshExpirationDays: 30,
-    resetPasswordExpirationMinutes: 10,
-    verifyEmailExpirationMinutes: 10,
+    secret: envVars.JWT_SECRET,
+    accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
+    refreshExpirationDays: envVars.JWT_REFRESH_EXPIRATION_DAYS,
+    resetPasswordExpirationMinutes: envVars.JWT_RESET_PASSWORD_EXPIRATION_MINUTES,
+    verifyEmailExpirationMinutes: envVars.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES,
   },
   email: {
     smtp: {
-      host: 'smtp.gmail.com',
-      port: 587,
+      host: envVars.SMTP_HOST,
+      port: envVars.SMTP_PORT,
       auth: {
-        user: 'sminzhz@gmail.com',
-        pass: 'Abc@12345678',
+        user: envVars.SMTP_USERNAME,
+        pass: envVars.SMTP_PASSWORD,
       },
     },
-    from: 'sminzhz@gmail.com',
+    from: envVars.EMAIL_FROM,
   },
 };
