@@ -1,6 +1,6 @@
-const nodemailer = require('nodemailer');
-const config = require('../config/config');
-const logger = require('../config/logger');
+import nodemailer from 'nodemailer';
+import config from '../config/config';
+import logger from '../config/logger';
 
 const transport = nodemailer.createTransport(config.email.smtp);
 /* istanbul ignore next */
@@ -55,9 +55,4 @@ If you did not create an account, then ignore this email.`;
   await sendEmail(to, subject, text);
 };
 
-module.exports = {
-  transport,
-  sendEmail,
-  sendResetPasswordEmail,
-  sendVerificationEmail,
-};
+export { transport, sendEmail, sendResetPasswordEmail, sendVerificationEmail };

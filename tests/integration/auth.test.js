@@ -1,20 +1,20 @@
-const request = require('supertest');
-const faker = require('faker');
-const httpStatus = require('http-status');
-const httpMocks = require('node-mocks-http');
-const moment = require('moment');
-const bcrypt = require('bcryptjs');
-const app = require('../../src/app');
-const config = require('../../src/config/config');
-const auth = require('../../src/middlewares/auth');
-const { tokenService, emailService } = require('../../src/services');
-const ApiError = require('../../src/utils/ApiError');
-const setupTestDB = require('../utils/setupTestDB');
-const { User, Token } = require('../../src/models');
-const { roleRights } = require('../../src/config/roles');
-const { tokenTypes } = require('../../src/config/tokens');
-const { userOne, admin, insertUsers } = require('../fixtures/user.fixture');
-const { userOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
+import request from 'supertest';
+import faker from 'faker';
+import httpStatus from 'http-status';
+import httpMocks from 'node-mocks-http';
+import moment from 'moment';
+import bcrypt from 'bcryptjs';
+import app from '../../src/app';
+import config from '../../src/config/config';
+import auth from '../../src/middlewares/auth';
+import { tokenService, emailService } from '../../src/services';
+import ApiError from '../../src/utils/ApiError';
+import setupTestDB from '../utils/setupTestDB';
+import { User, Token } from '../../src/models';
+import { roleRights } from '../../src/config/roles';
+import { tokenTypes } from '../../src/config/tokens';
+import { userOne, admin, insertUsers } from '../fixtures/user.fixture';
+import { userOneAccessToken, adminAccessToken } from '../fixtures/token.fixture';
 
 setupTestDB();
 

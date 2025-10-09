@@ -1,6 +1,6 @@
-const nodeMailer = require('nodemailer');
-const ejs = require('ejs');
-// const htmlToText = require('html-to-text');
+import nodeMailer from 'nodemailer';
+import ejs from 'ejs';
+// import htmlToText from 'html-to-text';
 
 const sendMail = async (options) => {
   // 1 Create Transportor
@@ -33,4 +33,4 @@ const sendMail = async (options) => {
   await transportor.sendMail(mailOptions);
 };
 
-module.exports = sendMail;
+export default sendMail;

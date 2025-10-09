@@ -1,8 +1,8 @@
-const httpStatus = require('http-status');
-const catchAsync = require('../utils/catchAsync');
-const { authService, tokenService } = require('../services');
-// const { User } = require('../models');
-// const { authService } = require('../services');
+import httpStatus from 'http-status';
+import catchAsync from '../utils/catchAsync';
+import { authService, tokenService } from '../services';
+// import { User } from '../models';
+// import { authService } from '../services';
 
 const newSession = catchAsync(async (req, res) => {
   const locals = {
@@ -32,8 +32,4 @@ const destroy = (req, res) => {
   res.render('static_pages/about');
 };
 
-module.exports = {
-  newSession,
-  create,
-  destroy,
-};
+export { newSession, create, destroy };

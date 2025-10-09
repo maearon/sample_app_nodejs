@@ -1,8 +1,8 @@
-const express = require('express');
-const staticPageController = require('../controllers/staticPage.controller');
-const sessionController = require('../controllers/session.controller');
-const usersController = require('../controllers/users.controller');
-const passwordResetsController = require('../controllers/password_resets.controller');
+import express from 'express';
+import staticPageController from '../controllers/staticPage.controller';
+import sessionController from '../controllers/session.controller';
+import usersController from '../controllers/users.controller';
+import passwordResetsController from '../controllers/password_resets.controller';
 
 const router = express.Router();
 
@@ -41,4 +41,4 @@ router.get('/users/:user_id/followers', usersController.followers);
 router.get('/password_resets/new', passwordResetsController.newPasswordReset);
 router.get('/password_resets/:id/edit', passwordResetsController.edit);
 
-module.exports = router;
+export default router;

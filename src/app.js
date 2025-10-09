@@ -1,24 +1,24 @@
-const express = require('express');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
-const flash = require('connect-flash');
-const helmet = require('helmet');
-const xss = require('xss-clean');
-const mongoSanitize = require('express-mongo-sanitize');
-const compression = require('compression');
-const cors = require('cors');
-const passport = require('passport');
-const httpStatus = require('http-status');
-const path = require('path');
-const expressLayouts = require('express-ejs-layouts');
-const config = require('./config/config');
-const morgan = require('./config/morgan');
-const { jwtStrategy } = require('./config/passport');
-const { authLimiter } = require('./middlewares/rateLimiter');
-const routes = require('./routes');
-const { errorConverter, errorHandler } = require('./middlewares/error');
-const { fullTitle, fullFlash } = require('./middlewares/appHelper');
-const ApiError = require('./utils/ApiError');
+import express from 'express';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import flash from 'connect-flash';
+import helmet from 'helmet';
+import xss from 'xss-clean';
+import mongoSanitize from 'express-mongo-sanitize';
+import compression from 'compression';
+import cors from 'cors';
+import passport from 'passport';
+import httpStatus from 'http-status';
+import path from 'path';
+import expressLayouts from 'express-ejs-layouts';
+import config from './config/config';
+import morgan from './config/morgan';
+import { jwtStrategy } from './config/passport';
+import { authLimiter } from './middlewares/rateLimiter';
+import routes from './routes';
+import { errorConverter, errorHandler } from './middlewares/error';
+import { fullTitle, fullFlash } from './middlewares/appHelper';
+import ApiError from './utils/ApiError';
 
 const app = express();
 
@@ -111,4 +111,4 @@ app.use(fullFlash);
 // handle error
 app.use(errorHandler);
 
-module.exports = app;
+export default app;

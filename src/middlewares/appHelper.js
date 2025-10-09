@@ -8,7 +8,4 @@ const fullFlash = (messageType = '', message = '') => {
   if (messageType !== '' && message !== '') return [messageType, message];
 };
 
-module.exports = {
-  fullTitle,
-  fullFlash,
-};
+export { fullTitle, fullFlash };

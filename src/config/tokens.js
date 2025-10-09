@@ -5,6 +5,5 @@ const tokenTypes = {
   VERIFY_EMAIL: 'verifyEmail',
 };
 
-module.exports = {
-  tokenTypes,
-};
+// eslint-disable-next-line import/prefer-default-export
+export { tokenTypes };

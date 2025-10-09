@@ -15,7 +15,4 @@ const edit = (req, res) => {
   });
 };
 
-module.exports = {
-  newPasswordReset,
-  edit,
-};
+export { newPasswordReset, edit };

@@ -1,8 +1,8 @@
-const httpStatus = require('http-status');
-// const pick = require('../utils/pick');
-// const ApiError = require('../utils/ApiError');
-const catchAsync = require('../utils/catchAsync');
-const { userService } = require('../services');
+import httpStatus from 'http-status';
+// import pick from '../utils/pick';
+// import ApiError from '../utils/ApiError';
+import catchAsync from '../utils/catchAsync';
+import { userService } from '../services';
 
 const index = (req, res) => {
   res.render('users/index');
@@ -43,14 +43,4 @@ const destroy = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-module.exports = {
-  index,
-  show,
-  newUser,
-  create,
-  edit,
-  update,
-  destroy,
-  following,
-  followers,
-};
+export { index, show, newUser, create, edit, update, destroy, following, followers };
