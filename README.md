@@ -1,7 +1,7 @@
 # RESTful API Node Server Boilerplate
 
-[![Build Status](https://travis-ci.org/hagopj13/node-express-boilerplate.svg?branch=master)](https://travis-ci.org/hagopj13/node-express-boilerplate)
-[![Coverage Status](https://coveralls.io/repos/github/hagopj13/node-express-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/hagopj13/node-express-boilerplate?branch=master)
+[![Build Status](https://travis-ci.org/maearon/sample_app_nodejs.svg?branch=master)](https://travis-ci.org/maearon/sample_app_nodejs)
+[![Coverage Status](https://coveralls.io/repos/github/maearon/sample_app_nodejs/badge.svg?branch=master)](https://coveralls.io/github/maearon/sample_app_nodejs?branch=master)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 A boilerplate/starter project for quickly building RESTful APIs using Node.js, Express, and Mongoose.
@@ -29,8 +29,8 @@ If you would still prefer to do the installation manually, follow these steps:
 Clone the repo:
 
 ```bash
-git clone --depth 1 https://github.com/hagopj13/node-express-boilerplate.git
-cd node-express-boilerplate
+git clone --depth 1 https://github.com/maearon/sample_app_nodejs.git
+cd sample_app_nodejs
 npx rimraf ./.git
 ```
 

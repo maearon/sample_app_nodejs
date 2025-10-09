@@ -11,7 +11,7 @@ const edit = (req, res) => {
   console.log(email);
   res.render('password_resets/edit', {
     token,
-    email
+    email,
   });
 };
 
