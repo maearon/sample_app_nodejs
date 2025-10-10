@@ -15,4 +15,4 @@ const edit = (req, res) => {
   });
 };
 
-export { newPasswordReset, edit };
+export default { newPasswordReset, edit };

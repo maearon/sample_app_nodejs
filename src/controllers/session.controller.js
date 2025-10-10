@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
-import catchAsync from '../utils/catchAsync';
-import { authService, tokenService } from '../services';
+import catchAsync from '../utils/catchAsync.js';
+import { authService, tokenService } from '../services/index.js';
 // import { User } from '../models';
 // import { authService } from '../services';
 
@@ -32,4 +32,4 @@ const destroy = (req, res) => {
   res.render('static_pages/about');
 };
 
-export { newSession, create, destroy };
+export default { newSession, create, destroy };

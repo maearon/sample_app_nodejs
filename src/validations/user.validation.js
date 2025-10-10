@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { password, objectId } from './custom.validation';
+import { password, objectId } from './custom.validation.js';
 
 const createUser = {
   body: Joi.object().keys({
@@ -45,4 +45,4 @@ const deleteUser = {
   }),
 };
 
-export { createUser, getUsers, getUser, updateUser, deleteUser };
+export default { createUser, getUsers, getUser, updateUser, deleteUser };

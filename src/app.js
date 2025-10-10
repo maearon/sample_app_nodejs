@@ -11,14 +11,18 @@ import passport from 'passport';
 import httpStatus from 'http-status';
 import path from 'path';
 import expressLayouts from 'express-ejs-layouts';
-import config from './config/config';
-import morgan from './config/morgan';
-import { jwtStrategy } from './config/passport';
-import { authLimiter } from './middlewares/rateLimiter';
-import routes from './routes';
-import { errorConverter, errorHandler } from './middlewares/error';
-import { fullTitle, fullFlash } from './middlewares/appHelper';
-import ApiError from './utils/ApiError';
+import { fileURLToPath } from 'url';
+import config from './config/config.js';
+import morgan from './config/morgan.js';
+import { jwtStrategy } from './config/passport.js';
+import { authLimiter } from './middlewares/rateLimiter.js';
+import routes from './routes/index.js';
+import { errorConverter, errorHandler } from './middlewares/error.js';
+import { fullTitle, fullFlash } from './middlewares/appHelper.js';
+import ApiError from './utils/ApiError.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -34,7 +38,7 @@ app.use(
     cookie: { maxAge: 60000 },
     resave: true,
     saveUninitialized: true,
-  })
+  }),
 );
 app.use(flash());
 
@@ -59,7 +63,7 @@ if (config.env !== 'test') {
 app.use(
   helmet({
     contentSecurityPolicy: false,
-  })
+  }),
 );
 
 // parse json request body
@@ -79,11 +83,10 @@ app.use(compression());
 // app.use(cors());
 // app.options('*', cors());
 app.use(
-  '*',
   cors({
     origin: 'http://localhost:3000',
     credentials: true,
-  })
+  }),
 );
 
 // jwt authentication

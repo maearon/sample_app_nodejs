@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
 import httpStatus from 'http-status';
-import config from '../config/config';
-import userService from './user.service';
-import { Token } from '../models';
-import ApiError from '../utils/ApiError';
-import { tokenTypes } from '../config/tokens';
+import config from '../config/config.js';
+import userService from './user.service.js';
+import { Token } from '../models/index.js';
+import ApiError from '../utils/ApiError.js';
+import { tokenTypes } from '../config/tokens.js';
 
 /**
  * Generate token
@@ -113,4 +113,11 @@ const generateVerifyEmailToken = async (user) => {
   return verifyEmailToken;
 };
 
-export { generateToken, saveToken, verifyToken, generateAuthTokens, generateResetPasswordToken, generateVerifyEmailToken };
+export default {
+  generateToken,
+  saveToken,
+  verifyToken,
+  generateAuthTokens,
+  generateResetPasswordToken,
+  generateVerifyEmailToken,
+};

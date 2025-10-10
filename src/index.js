@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
-import app from './app';
-import config from './config/config';
-import logger from './config/logger';
+// eslint-disable-next-line import/extensions
+import app from './app.js';
+// eslint-disable-next-line import/extensions
+import config from './config/config.js';
+// eslint-disable-next-line import/extensions
+import logger from './config/logger.js';
 
 let server;
 mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {

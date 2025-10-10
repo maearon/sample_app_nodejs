@@ -1,8 +1,8 @@
 import httpStatus from 'http-status';
-import pick from '../../utils/pick';
-import ApiError from '../../utils/ApiError';
-import catchAsync from '../../utils/catchAsync';
-import { userService } from '../../services';
+import pick from '../../utils/pick.js';
+import ApiError from '../../utils/ApiError.js';
+import catchAsync from '../../utils/catchAsync.js';
+import { userService } from '../../services/index.js';
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -34,4 +34,4 @@ const deleteUser = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-export { createUser, getUsers, getUser, updateUser, deleteUser };
+export default { createUser, getUsers, getUser, updateUser, deleteUser };

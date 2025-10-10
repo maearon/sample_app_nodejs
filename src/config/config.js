@@ -1,7 +1,10 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import Joi from 'joi';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, '../../.env') });
 
 const envVarsSchema = Joi.object()
@@ -38,9 +41,9 @@ export default {
   mongoose: {
     url: envVars.MONGODB_URL,
     options: {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      // useCreateIndex: true,
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
     },
   },
   jwt: {

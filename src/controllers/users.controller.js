@@ -1,8 +1,8 @@
 import httpStatus from 'http-status';
 // import pick from '../utils/pick';
 // import ApiError from '../utils/ApiError';
-import catchAsync from '../utils/catchAsync';
-import { userService } from '../services';
+import catchAsync from '../utils/catchAsync.js';
+import { userService } from '../services/index.js';
 
 const index = (req, res) => {
   res.render('users/index');
@@ -43,4 +43,4 @@ const destroy = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-export { index, show, newUser, create, edit, update, destroy, following, followers };
+export default { index, show, newUser, create, edit, update, destroy, following, followers };

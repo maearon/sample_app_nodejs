@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { password } from './custom.validation';
+import { password } from './custom.validation.js';
 
 const register = {
   body: Joi.object().keys({
@@ -49,4 +49,4 @@ const verifyEmail = {
   }),
 };
 
-export { register, login, logout, refreshTokens, forgotPassword, resetPassword, verifyEmail };
+export default { register, login, logout, refreshTokens, forgotPassword, resetPassword, verifyEmail };

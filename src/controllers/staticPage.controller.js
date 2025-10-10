@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import catchAsync from '../utils/catchAsync';
+import catchAsync from '../utils/catchAsync.js';
 
 const home = catchAsync(async (req, res) => {
   // Set a flash name and pass it to the home page.
@@ -20,4 +20,4 @@ const contact = (req, res) => {
   res.render('static_pages/contact');
 };
 
-export { home, help, about, contact };
+export default { home, help, about, contact };

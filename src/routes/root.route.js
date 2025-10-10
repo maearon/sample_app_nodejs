@@ -1,8 +1,8 @@
 import express from 'express';
-import staticPageController from '../controllers/staticPage.controller';
-import sessionController from '../controllers/session.controller';
-import usersController from '../controllers/users.controller';
-import passwordResetsController from '../controllers/password_resets.controller';
+import staticPageController from '../controllers/staticPage.controller.js';
+import sessionController from '../controllers/session.controller.js';
+import usersController from '../controllers/users.controller.js';
+import passwordResetsController from '../controllers/password_resets.controller.js';
 
 const router = express.Router();
 

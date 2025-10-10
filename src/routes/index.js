@@ -1,9 +1,10 @@
+/* eslint-disable import/extensions */
 import express from 'express';
-import root from './root.route';
-import apiAuthRoute from './v1/auth.route';
-import apiUserRoute from './v1/user.route';
-import docsRoute from './v1/docs.route';
-import config from '../config/config';
+import root from './root.route.js';
+import apiAuthRoute from './v1/auth.route.js';
+import apiUserRoute from './v1/user.route.js';
+import docsRoute from './v1/docs.route.js';
+import config from '../config/config.js';
 
 const router = express.Router();
 

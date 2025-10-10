@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import httpStatus from 'http-status';
-import config from '../config/config';
-import logger from '../config/logger';
-import ApiError from '../utils/ApiError';
+import config from '../config/config.js';
+import logger from '../config/logger.js';
+import ApiError from '../utils/ApiError.js';
 
 const errorConverter = (err, req, res, next) => {
   let error = err;
