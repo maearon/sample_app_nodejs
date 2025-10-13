@@ -29,7 +29,7 @@ const app = express();
 
 // This allows us to pass data from the form
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.json());
 
 // Set Cookie Parser, sessions and flash
 app.use(cookieParser('NotSoSecret'));
@@ -76,7 +76,13 @@ app.use(express.urlencoded({ extended: true }));
 // sanitize request data
 // app.use(xss());
 app.use((req, res, next) => {
-  req.body = xss(req.body);
+  if (req.body && typeof req.body === 'object') {
+    Object.entries(req.body).forEach(([key, value]) => {
+      if (typeof value === 'string') {
+        req.body[key] = xss(value);
+      }
+    });
+  }
   next();
 });
 // app.use(mongoSanitize());

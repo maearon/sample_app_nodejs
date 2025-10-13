@@ -14,4 +14,4 @@ COPY --chown=node:node . .
 
 EXPOSE 5001
 
-CMD ["npm", "start"]
+CMD ["node", "src/index.js"]
