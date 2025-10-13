@@ -36,8 +36,8 @@ if (error) {
 }
 
 export default {
-  env: envVars.NODE_ENV,
-  port: envVars.PORT,
+  env: envVars.NODE_ENV || 'production',
+  port: envVars.PORT || 5001,
   mongoose: {
     url: envVars.MONGODB_URL,
     options: {

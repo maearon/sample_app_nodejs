@@ -1,17 +1,17 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
 import express from 'express';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import flash from 'connect-flash';
 import helmet from 'helmet';
-import xss from 'xss-clean';
-import mongoSanitize from 'express-mongo-sanitize';
+import xss from 'xss';
+// import mongoSanitize from 'express-mongo-sanitize';
 import compression from 'compression';
 import cors from 'cors';
 import passport from 'passport';
 import httpStatus from 'http-status';
-import path from 'path';
 import expressLayouts from 'express-ejs-layouts';
-import { fileURLToPath } from 'url';
 import config from './config/config.js';
 import morgan from './config/morgan.js';
 import { jwtStrategy } from './config/passport.js';
@@ -20,6 +20,7 @@ import routes from './routes/index.js';
 import { errorConverter, errorHandler } from './middlewares/error.js';
 import { fullTitle, fullFlash } from './middlewares/appHelper.js';
 import ApiError from './utils/ApiError.js';
+import { safeMongoSanitize } from './middlewares/sanitize.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -73,8 +74,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // sanitize request data
-app.use(xss());
-app.use(mongoSanitize());
+// app.use(xss());
+app.use((req, res, next) => {
+  req.body = xss(req.body);
+  next();
+});
+// app.use(mongoSanitize());
+app.use(safeMongoSanitize());
 
 // gzip compression
 app.use(compression());
@@ -84,7 +90,7 @@ app.use(compression());
 // app.options('*', cors());
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'http://localhost:3000'],
     credentials: true,
   }),
 );

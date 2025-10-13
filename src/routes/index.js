@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 import express from 'express';
 import root from './root.route.js';
+import apiTaskRoute from './task.route.js';
 import apiAuthRoute from './v1/auth.route.js';
 import apiUserRoute from './v1/user.route.js';
 import docsRoute from './v1/docs.route.js';
@@ -20,6 +21,10 @@ const defaultRoutes = [
   {
     path: '/',
     route: root,
+  },
+  {
+    path: '/api/tasks',
+    route: apiTaskRoute,
   },
   // {
   //   path: '/users',

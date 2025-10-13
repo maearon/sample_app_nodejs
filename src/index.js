@@ -1,9 +1,6 @@
 import mongoose from 'mongoose';
-// eslint-disable-next-line import/extensions
 import app from './app.js';
-// eslint-disable-next-line import/extensions
 import config from './config/config.js';
-// eslint-disable-next-line import/extensions
 import logger from './config/logger.js';
 
 let server;
