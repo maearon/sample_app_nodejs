@@ -1,0 +1,380 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "d0994398-7408-4444-8005-4ed0bd1628f0",
+        "name": "chat"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"name\": \"Mạnh Nguyễn\",\n  \"email\": \"manhng132@gmail.com\", \n  \"password\": \"Abc@0974006807\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "secure": true,
+                "name": "https",
+                "version": "V11"
+              },
+              "host": "node-boilerplate-pww8.onrender.com",
+              "path": "/v1/auth/register"
+            },
+            "id": "3e28f3d0-0949-4ba3-b68c-631be616dc51",
+            "name": "auth",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "secure": true,
+                "name": "https",
+                "version": "V11"
+              },
+              "host": "node-boilerplate-pww8.onrender.com",
+              "path": "/api/tasks"
+            },
+            "id": "91833bdd-1ed2-49bd-8ce5-c3b50adfe25d",
+            "name": "chat",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"email\": \"manhng132@gmail.com\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "secure": true,
+                "name": "https",
+                "version": "V11"
+              },
+              "host": "node-boilerplate-pww8.onrender.com",
+              "path": "/v1/auth/forgot-password"
+            },
+            "id": "130ee881-62ff-48b7-9085-08a4f6a7e81b",
+            "name": "forgot-password",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"email\": \"manhng132@gmail.com\", \n  \"password\": \"Abc@0974006807\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "secure": true,
+                "name": "https",
+                "version": "V11"
+              },
+              "host": "node-boilerplate-pww8.onrender.com",
+              "path": "/v1/auth/login"
+            },
+            "id": "fbdcd14d-0760-4145-b2e5-c32308dccb08",
+            "name": "login",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OGY2ZWU5MzM4NTU4NGJjM2RkNzVmZTgiLCJpYXQiOjE3NjEwMTYzMjcsImV4cCI6MTc2MzYwODMyNywidHlwZSI6InJlZnJlc2gifQ.obgCd0NzNO2rSfhlLKkj-8rnFnYX0Z1OlVkyHYWuWl0\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "secure": true,
+                "name": "https",
+                "version": "V11"
+              },
+              "host": "node-boilerplate-pww8.onrender.com",
+              "path": "/v1/auth/refresh-tokens"
+            },
+            "id": "a6477223-29d1-4c06-b3e7-5bfacef4b392",
+            "name": "refresh-tokens",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OGY2ZWU5MzM4NTU4NGJjM2RkNzVmZTgiLCJpYXQiOjE3NjEwMTYzMjcsImV4cCI6MTc2MTAxODEyNywidHlwZSI6ImFjY2VzcyJ9.Fy9yh4wn1xuXD-l6e0G4GyQkjWxV8HiRgQz0uYUTo94"
+              },
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "secure": true,
+                "name": "https",
+                "version": "V11"
+              },
+              "host": "node-boilerplate-pww8.onrender.com",
+              "path": "/v1/auth/send-verification-email"
+            },
+            "id": "0e6e6204-98e8-44c7-bfda-798e4074e763",
+            "name": "send-verification-email",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OGY2ZWU5MzM4NTU4NGJjM2RkNzVmZTgiLCJpYXQiOjE3NjEwMTYzMjcsImV4cCI6MTc2MTAxODEyNywidHlwZSI6ImFjY2VzcyJ9.Fy9yh4wn1xuXD-l6e0G4GyQkjWxV8HiRgQz0uYUTo94"
+              },
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "secure": true,
+                "name": "https",
+                "version": "V11"
+              },
+              "host": "node-boilerplate-pww8.onrender.com",
+              "path": "/express/info/routes"
+            },
+            "id": "09600958-f052-4443-9357-2fba67a1773e",
+            "name": "swagger",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc5789",
+              "name": "PATCH"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"name\": \"Manh Admin\",\n  \"email\": \"manhng132@gmail.com\",\n  \"password\": \"Abc@0974006807\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "secure": true,
+                "name": "https",
+                "version": "V11"
+              },
+              "host": "node-boilerplate-pww8.onrender.com",
+              "path": "/v1/users/68f6ee93385584bc3dd75fe8"
+            },
+            "id": "ba043b11-fa53-49dd-aa73-6bcd836908e3",
+            "name": "update user",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OGY2ZWU5MzM4NTU4NGJjM2RkNzVmZTgiLCJpYXQiOjE3NjEwMTYzMjcsImV4cCI6MTc2MTAxODEyNywidHlwZSI6ImFjY2VzcyJ9.Fy9yh4wn1xuXD-l6e0G4GyQkjWxV8HiRgQz0uYUTo94"
+              },
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OGY2ZWU5MzM4NTU4NGJjM2RkNzVmZTgiLCJpYXQiOjE3NjEwMTYzMjcsImV4cCI6MTc2MzYwODMyNywidHlwZSI6InJlZnJlc2gifQ.obgCd0NzNO2rSfhlLKkj-8rnFnYX0Z1OlVkyHYWuWl0\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "secure": true,
+                "name": "https",
+                "version": "V11"
+              },
+              "host": "node-boilerplate-pww8.onrender.com",
+              "path": "/v1/users"
+            },
+            "id": "86879554-1696-43c5-a03c-3821571cc910",
+            "name": "users",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OGY2ZWU5MzM4NTU4NGJjM2RkNzVmZTgiLCJpYXQiOjE3NjEwMTYzMjcsImV4cCI6MTc2MTAxODEyNywidHlwZSI6ImFjY2VzcyJ9.Fy9yh4wn1xuXD-l6e0G4GyQkjWxV8HiRgQz0uYUTo94"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
