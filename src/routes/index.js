@@ -1,6 +1,9 @@
 /* eslint-disable import/extensions */
 import express from 'express';
 import root from './root.route.js';
+import apiFriendRoute from './friend.route.js';
+import apiMessageRoute from './message.route.js';
+import apiConversationRoute from './conversation.route.js';
 import apiTaskRoute from './task.route.js';
 import apiAuthRoute from './v1/auth.route.js';
 import apiUserRoute from './v1/user.route.js';
@@ -21,6 +24,18 @@ const defaultRoutes = [
   {
     path: '/',
     route: root,
+  },
+  {
+    path: '/api/friends',
+    route: apiFriendRoute,
+  },
+  {
+    path: '/api/messages',
+    route: apiMessageRoute,
+  },
+  {
+    path: '/api/conversations',
+    route: apiConversationRoute,
   },
   {
     path: '/api/tasks',
