@@ -144,3 +144,25 @@ export const getMessages = async (req, res) => {
     return res.status(500).json({ message: 'Lỗi hệ thống' });
   }
 };
+
+export const getUserConversationForSocketIO = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const conversations = await Conversation.find(
+      {
+        'participants.userId': userId,
+      },
+      {
+        _id: 1,
+      },
+    );
+
+    const formatted = conversations.map((conversation) => conversation._id.toString());
+
+    return res.status(200).json([...formatted]);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Lỗi xảy ra khi lấy conversations', error);
+    return [];
+  }
+};

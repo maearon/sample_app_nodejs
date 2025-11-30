@@ -1,6 +1,6 @@
 import Conversation from '../../models/conversation.model.js';
 import Message from '../../models/message.model.js';
-import { updateConversationAfterCreateMessage } from '../../utils/message.js';
+import { updateConversationAfterCreateMessage, emitNewMessage } from '../../utils/message.js';
 
 export const sendDirectMessage = async (req, res) => {
   try {
@@ -39,6 +39,8 @@ export const sendDirectMessage = async (req, res) => {
 
     await conversation.save();
 
+    emitNewMessage(io, conversation, message);
+
     return res.status(201).json({ message });
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -66,6 +68,8 @@ export const sendGroupMessage = async (req, res) => {
     updateConversationAfterCreateMessage(conversation, message, senderId);
 
     await conversation.save();
+
+    emitNewMessage(io, conversation, message);
 
     return res.status(201).json({ message });
   } catch (error) {
