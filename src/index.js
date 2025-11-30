@@ -15,7 +15,12 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
     const corsOptions = {
       origin: process.env.CORS_ORIGIN
         ? process.env.CORS_ORIGIN.split(',')
-        : ['http://localhost:5005', 'https://moji-phi.vercel.app'],
+        : [
+            'http://localhost:5001',
+            'http://localhost:5005',
+            'https://maearon-todo-x.vercel.app',
+            'https://moji-phi.vercel.app',
+          ],
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization', 'x-requested-with'],

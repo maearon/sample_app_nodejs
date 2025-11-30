@@ -96,7 +96,12 @@ app.use(compression());
 // app.options('*', cors());
 app.use(
   cors({
-    origin: ['http://localhost:5005', 'https://maearon-todo-x.vercel.app'],
+    origin: [
+      'http://localhost:5001',
+      'http://localhost:5005',
+      'https://maearon-todo-x.vercel.app',
+      'https://moji-phi.vercel.app',
+    ],
     credentials: true,
   }),
 );
