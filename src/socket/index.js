@@ -3,7 +3,7 @@ import { socketAuthMiddleware } from '../middlewares/socket.js';
 import { getUserConversationForSocketIO } from '../controllers/api/conversation.controller.js';
 
 let io = null;
-const onlineUsers = new Map(); // { userId: socketId }
+const onlineUsers = new Map();
 
 export function initSocket(server) {
   io = new Server(server, {
@@ -18,20 +18,21 @@ export function initSocket(server) {
   io.on('connection', async (socket) => {
     const { user } = socket;
     // eslint-disable-next-line security-node/detect-crlf, no-console
-    console.log(`🔌 User connected: ${user?.email} (${socket.id})`);
+    console.log(`🔌 User connected: ${user.email}`);
 
-    onlineUsers.set(user._id, socket.id);
+    onlineUsers.set(user._id.toString(), socket.id);
 
     io.emit('online-users', Array.from(onlineUsers.keys()));
 
     const conversationIds = await getUserConversationForSocketIO(user._id);
-    conversationIds.forEach((id) => socket.join(id));
+
+    conversationIds.forEach((id) => socket.join(id.toString()));
 
     socket.on('disconnect', () => {
-      onlineUsers.delete(user._id);
+      onlineUsers.delete(user._id.toString());
       io.emit('online-users', Array.from(onlineUsers.keys()));
       // eslint-disable-next-line no-console, security-node/detect-crlf
-      console.log(`🔌 User disconnected: ${user?.email} (${socket.id})`);
+      console.log(`🔌 User disconnected: ${user.email}`);
     });
   });
 }
