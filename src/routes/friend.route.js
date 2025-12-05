@@ -1,4 +1,5 @@
 import express from 'express';
+import auth from '../middlewares/auth.js';
 
 import {
   acceptFriendRequest,
@@ -10,12 +11,12 @@ import {
 
 const router = express.Router();
 
-router.post('/requests', sendFriendRequest);
+router.post('/requests', auth(), sendFriendRequest);
 
-router.post('/requests/:requestId/accept', acceptFriendRequest);
-router.post('/requests/:requestId/decline', declineFriendRequest);
+router.post('/requests/:requestId/accept', auth(), acceptFriendRequest);
+router.post('/requests/:requestId/decline', auth(), declineFriendRequest);
 
-router.get('/', getAllFriends);
-router.get('/requests', getFriendRequests);
+router.get('/', auth(), getAllFriends);
+router.get('/requests', auth(), getFriendRequests);
 
 export default router;

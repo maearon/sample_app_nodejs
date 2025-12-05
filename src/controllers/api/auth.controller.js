@@ -1,4 +1,5 @@
 import httpStatus from 'http-status';
+import ApiError from '../../utils/ApiError.js';
 import catchAsync from '../../utils/catchAsync.js';
 import { authService, userService, tokenService, emailService } from '../../services/index.js';
 
@@ -13,6 +14,13 @@ const login = catchAsync(async (req, res) => {
   const user = await authService.loginUserWithEmailAndPassword(email, password);
   const tokens = await tokenService.generateAuthTokens(user);
   res.send({ user, tokens });
+});
+
+const me = catchAsync(async (req, res) => {
+  if (!req.user) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+  }
+  res.send(req.user);
 });
 
 const logout = catchAsync(async (req, res) => {
@@ -47,4 +55,14 @@ const verifyEmail = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-export default { register, login, logout, refreshTokens, forgotPassword, resetPassword, sendVerificationEmail, verifyEmail };
+export default {
+  register,
+  login,
+  me,
+  logout,
+  refreshTokens,
+  forgotPassword,
+  resetPassword,
+  sendVerificationEmail,
+  verifyEmail,
+};

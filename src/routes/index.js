@@ -26,15 +26,15 @@ const defaultRoutes = [
     route: root,
   },
   {
-    path: '/api/friends',
+    path: '/v1/friends',
     route: apiFriendRoute,
   },
   {
-    path: '/api/messages',
+    path: '/v1/messages',
     route: apiMessageRoute,
   },
   {
-    path: '/api/conversations',
+    path: '/v1/conversations',
     route: apiConversationRoute,
   },
   {
