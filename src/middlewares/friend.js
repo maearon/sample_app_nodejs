@@ -1,9 +1,19 @@
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
+import mongoose from 'mongoose';
 import Conversation from '../models/conversation.model.js';
 import Friend from '../models/friend.model.js';
 
-const pair = (a, b) => (a < b ? [a, b] : [b, a]);
+const toObjectId = (id) => new mongoose.Types.ObjectId(id);
 
-// helper để lấy id string
+// Sắp xếp id theo thứ tự để lưu cặp bạn bè
+const pair = (a, b) => {
+  a = a.toString();
+  b = b.toString();
+  return a.localeCompare(b) < 0 ? [a, b] : [b, a];
+};
+
+// Lấy id từ mọi dạng (string, object, mongoose doc)
 const getId = (val) => {
   if (!val) return null;
   if (typeof val === 'string') return val;
@@ -14,49 +24,31 @@ export const checkFriendship = async (req, res, next) => {
   try {
     const me = req.user._id.toString();
     const recipientId = getId(req.body?.recipientId);
-    const rawMemberIds = req.body?.memberIds ?? [];
 
-    const memberIds = rawMemberIds.map(getId);
+    console.log('=== CHECK FRIENDSHIP DEBUG ===');
+    console.log('me         =', me);
+    console.log('recipient  =', recipientId);
+    console.log('pair       =', pair(me, recipientId));
 
-    if (!recipientId && memberIds.length === 0) {
-      return res.status(400).json({ message: 'Cần cung cấp recipientId hoặc memberIds' });
-    }
+    if (!recipientId) return next();
 
-    // --- 1-1 CHAT ---
-    if (recipientId) {
-      const [userA, userB] = pair(me, recipientId);
+    const [userA, userB] = pair(me, recipientId);
 
-      const isFriend = await Friend.findOne({ userA, userB });
-
-      if (!isFriend) {
-        return res.status(403).json({ message: 'Bạn chưa kết bạn với người này' });
-      }
-
-      return next();
-    }
-
-    // --- GROUP CHAT ---
-    const friendChecks = memberIds.map(async (mId) => {
-      const [userA, userB] = pair(me, mId);
-      const friend = await Friend.findOne({ userA, userB });
-      return friend ? null : mId;
+    const doc = await Friend.findOne({
+      userA: toObjectId(userA),
+      userB: toObjectId(userB),
     });
 
-    const results = await Promise.all(friendChecks);
-    const notFriends = results.filter(Boolean);
+    console.log('DB FOUND?  =', doc);
 
-    if (notFriends.length > 0) {
-      return res.status(403).json({
-        message: 'Bạn chỉ có thể thêm bạn bè vào nhóm.',
-        notFriends,
-      });
+    if (!doc) {
+      return res.status(403).json({ message: 'Bạn chưa kết bạn với người này' });
     }
 
     next();
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Lỗi checkFriendship:', error);
-    return res.status(500).json({ message: 'Lỗi hệ thống' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Lỗi hệ thống' });
   }
 };
 
@@ -85,8 +77,7 @@ export const checkGroupMembership = async (req, res, next) => {
 
     next();
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error('Lỗi checkGroupMembership:', error);
-    return res.status(500).json({ message: 'Lỗi hệ thống' });
+    res.status(500).json({ message: 'Lỗi hệ thống' });
   }
 };
