@@ -3,16 +3,26 @@ import Friend from '../models/friend.model.js';
 
 const pair = (a, b) => (a < b ? [a, b] : [b, a]);
 
+// helper để lấy id string
+const getId = (val) => {
+  if (!val) return null;
+  if (typeof val === 'string') return val;
+  return val.userId ?? val._id ?? val.id ?? null;
+};
+
 export const checkFriendship = async (req, res, next) => {
   try {
     const me = req.user._id.toString();
-    const recipientId = req.body?.recipientId ?? null;
-    const memberIds = req.body?.memberIds ?? [];
+    const recipientId = getId(req.body?.recipientId);
+    const rawMemberIds = req.body?.memberIds ?? [];
+
+    const memberIds = rawMemberIds.map(getId);
 
     if (!recipientId && memberIds.length === 0) {
       return res.status(400).json({ message: 'Cần cung cấp recipientId hoặc memberIds' });
     }
 
+    // --- 1-1 CHAT ---
     if (recipientId) {
       const [userA, userB] = pair(me, recipientId);
 
@@ -25,23 +35,27 @@ export const checkFriendship = async (req, res, next) => {
       return next();
     }
 
-    const friendChecks = memberIds.map(async (memberId) => {
-      const [userA, userB] = pair(me, memberId);
+    // --- GROUP CHAT ---
+    const friendChecks = memberIds.map(async (mId) => {
+      const [userA, userB] = pair(me, mId);
       const friend = await Friend.findOne({ userA, userB });
-      return friend ? null : memberId;
+      return friend ? null : mId;
     });
 
     const results = await Promise.all(friendChecks);
     const notFriends = results.filter(Boolean);
 
     if (notFriends.length > 0) {
-      return res.status(403).json({ message: 'Bạn chỉ có thể thêm bạn bè vào nhóm.', notFriends });
+      return res.status(403).json({
+        message: 'Bạn chỉ có thể thêm bạn bè vào nhóm.',
+        notFriends,
+      });
     }
 
     next();
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('Lỗi xảy ra khi checkFriendship:', error);
+    console.error('Lỗi checkFriendship:', error);
     return res.status(500).json({ message: 'Lỗi hệ thống' });
   }
 };
@@ -49,7 +63,7 @@ export const checkFriendship = async (req, res, next) => {
 export const checkGroupMembership = async (req, res, next) => {
   try {
     const { conversationId } = req.body;
-    const userId = req.user._id;
+    const userId = req.user._id.toString();
 
     const conversation = await Conversation.findById(conversationId);
 
@@ -57,7 +71,11 @@ export const checkGroupMembership = async (req, res, next) => {
       return res.status(404).json({ message: 'Không tìm thấy cuộc trò chuyện' });
     }
 
-    const isMember = conversation.participants.some((p) => p.userId.toString() === userId.toString());
+    const isMember = conversation.participants.some((p) => {
+      const pid = p.userId?.toString() ?? p._id?.toString() ?? p.id?.toString() ?? null;
+
+      return pid === userId;
+    });
 
     if (!isMember) {
       return res.status(403).json({ message: 'Bạn không ở trong group này.' });
