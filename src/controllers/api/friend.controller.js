@@ -122,29 +122,83 @@ export const declineFriendRequest = async (req, res) => {
   }
 };
 
+// export const getAllFriends = async (req, res) => {
+//   try {
+//     const userId = req.user._id;
+
+//     const friendships = await Friend.find({
+//       $or: [
+//         {
+//           userA: userId,
+//         },
+//         {
+//           userB: userId,
+//         },
+//       ],
+//     })
+//       .populate('userA', '_id displayName avatarUrl')
+//       .populate('userB', '_id displayName avatarUrl')
+//       .lean();
+
+//     if (!friendships.length) {
+//       return res.status(200).json({ friends: [] });
+//     }
+
+//     const friends = friendships.map((f) => (f.userA._id.toString() === userId.toString() ? f.userB : f.userA));
+
+//     return res.status(200).json({ friends });
+//   } catch (error) {
+//     // eslint-disable-next-line no-console
+//     console.error('Lỗi khi lấy danh sách bạn bè', error);
+//     return res.status(500).json({ message: 'Lỗi hệ thống' });
+//   }
+// };
 export const getAllFriends = async (req, res) => {
   try {
     const userId = req.user._id;
+    const q = req.query.q?.toLowerCase() || null;
 
     const friendships = await Friend.find({
-      $or: [
-        {
-          userA: userId,
-        },
-        {
-          userB: userId,
-        },
-      ],
+      $or: [{ userA: userId }, { userB: userId }],
     })
-      .populate('userA', '_id displayName avatarUrl')
-      .populate('userB', '_id displayName avatarUrl')
+      .populate('userA')
+      .populate('userB')
       .lean();
 
     if (!friendships.length) {
       return res.status(200).json({ friends: [] });
     }
 
-    const friends = friendships.map((f) => (f.userA._id.toString() === userId.toString() ? f.userB : f.userA));
+    let friends = friendships.map((f) => (f.userA._id.toString() === userId.toString() ? f.userB : f.userA));
+
+    // 🟩 Nếu có query → filter theo name, username, displayName, email
+    if (q) {
+      const normalize = (str = '') =>
+        str
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+
+      const query = normalize(q);
+
+      friends = friends.filter((u) => {
+        const name = normalize(u.name);
+        const displayName = normalize(u.displayName);
+        const username = normalize(u.username);
+        const email = normalize(u.email);
+
+        return name.includes(query) || displayName.includes(query) || username.includes(query) || email.includes(query);
+      });
+    }
+
+    // Giới hạn 10 bạn
+    friends = friends.slice(0, 10);
+
+    // Loại bỏ password
+    friends = friends.map((u) => {
+      const { password, ...rest } = u;
+      return rest;
+    });
 
     return res.status(200).json({ friends });
   } catch (error) {
