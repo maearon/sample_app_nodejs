@@ -84,15 +84,15 @@ export const getConversations = async (req, res) => {
       .sort({ lastMessageAt: -1 })
       .populate({
         path: 'participants.userId',
-        select: 'displayName avatarUrl',
+        select: 'name email displayName avatarUrl',
       })
       .populate({
         path: 'lastMessage.senderId',
-        select: 'displayName avatarUrl',
+        select: 'name email displayName avatarUrl',
       })
       .populate({
         path: 'seenBy',
-        select: 'displayName avatarUrl',
+        select: 'name email displayName avatarUrl',
       });
 
     const formatted = conversations.map((c) => ({
@@ -100,6 +100,8 @@ export const getConversations = async (req, res) => {
       unreadCounts: c.unreadCounts || {},
       participants: c.participants?.map((p) => ({
         _id: p.userId?._id,
+        name: p.userId?.name,
+        email: p.userId?.email,
         displayName: p.userId?.displayName,
         avatarUrl: p.userId?.avatarUrl || null,
         joinedAt: p.joinedAt,
