@@ -11,7 +11,9 @@ export const socketAuthMiddleware = async (socket, next) => {
     if (!decoded) {
       return next(new Error('Unauthorized - Token is invalid or expired'));
     }
-    const user = await User.findById(decoded.userId).select('-hashedPassword');
+    // eslint-disable-next-line no-console, security-node/detect-crlf
+    // console.log('decoded.userId', decoded);
+    const user = await User.findById(decoded.sub).select('-hashedPassword');
     if (!user) {
       return next(new Error('User does not exist'));
     }
