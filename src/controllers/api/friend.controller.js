@@ -226,3 +226,86 @@ export const getFriendRequests = async (req, res) => {
     return res.status(500).json({ message: 'Lỗi hệ thống' });
   }
 };
+
+export const getFriendSuggestions = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const q = req.query.q?.toLowerCase() || '';
+
+    // =============== 1. Lấy danh sách bạn bè ==================
+    const friendships = await Friend.find({
+      $or: [{ userA: userId }, { userB: userId }],
+    })
+      .populate('userA')
+      .populate('userB')
+      .lean();
+
+    let friends = friendships.map((f) => (f.userA._id.toString() === userId.toString() ? f.userB : f.userA));
+
+    friends = friends.map((u) => {
+      const { password, ...rest } = u;
+      return rest;
+    });
+
+    // Friend IDs to filter out later
+    const friendIds = new Set(friends.map((u) => u._id.toString()));
+
+    // =============== 2. Search users ==================
+    let users = await User.find({}).select('_id name displayName username email avatar').lean();
+
+    if (q) {
+      const normalize = (str = '') =>
+        str
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+
+      const query = normalize(q);
+
+      users = users.filter((u) => {
+        return (
+          normalize(u.name).includes(query) ||
+          normalize(u.displayName).includes(query) ||
+          normalize(u.username).includes(query) ||
+          normalize(u.email).includes(query)
+        );
+      });
+    }
+
+    // Loại bỏ chính mình + bạn bè
+    users = users.filter((u) => u._id.toString() !== userId.toString() && !friendIds.has(u._id.toString()));
+
+    users = users.slice(0, 10);
+
+    // =============== 3. Lấy friend requests ==================
+    const [sent, received] = await Promise.all([
+      FriendRequest.find({ from: userId }).populate('to', '_id name email avatar'),
+      FriendRequest.find({ to: userId }).populate('from', '_id name email avatar'),
+    ]);
+
+    // Build map để FE biết user nào đã có pending request
+    const pendingMap = {};
+
+    // eslint-disable-next-line no-shadow
+    sent.forEach((req) => {
+      pendingMap[req.to._id] = 'sent';
+    });
+
+    // eslint-disable-next-line no-shadow
+    received.forEach((req) => {
+      pendingMap[req.from._id] = 'received';
+    });
+
+    return res.status(200).json({
+      friends,
+      users,
+      sent,
+      received,
+      pendingMap,
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('getFriendSuggestions error:', error);
+    return res.status(500).json({ message: 'Lỗi hệ thống' });
+  }
+};
