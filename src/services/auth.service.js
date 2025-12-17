@@ -2,11 +2,26 @@ import httpStatus from 'http-status';
 import tokenService from './token.service.js';
 import userService from './user.service.js';
 import Token from '../models/token.model.js';
+import Session from '../models/session.model.js';
 import ApiError from '../utils/ApiError.js';
 import { tokenTypes } from '../config/tokens.js';
 
 /**
  * Login with username and password
+ * @param {string} username
+ * @param {string} password
+ * @returns {Promise<User>}
+ */
+const loginUserWithUsernameAndPassword = async (username, password) => {
+  const user = await userService.getUserByUsername(username);
+  if (!user || !(await user.isPasswordMatch(password))) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect username or password');
+  }
+  return user;
+};
+
+/**
+ * Login with email and password
  * @param {string} email
  * @param {string} password
  * @returns {Promise<User>}
@@ -24,12 +39,43 @@ const loginUserWithEmailAndPassword = async (email, password) => {
  * @param {string} refreshToken
  * @returns {Promise}
  */
+const logoutVer2 = async (refreshToken) => {
+  const refreshTokenDoc = await Session.findOne({ refreshToken });
+  if (!refreshTokenDoc) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Not found');
+  }
+  await refreshTokenDoc.deleteOne();
+};
+
+/**
+ * Logout
+ * @param {string} refreshToken
+ * @returns {Promise}
+ */
 const logout = async (refreshToken) => {
   const refreshTokenDoc = await Token.findOne({ token: refreshToken, type: tokenTypes.REFRESH, blacklisted: false });
   if (!refreshTokenDoc) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Not found');
   }
   await refreshTokenDoc.deleteOne();
+};
+
+/**
+ * Refresh auth tokens
+ * @param {string} refreshToken
+ * @returns {Promise<Object>}
+ */
+const refreshAuthVer2 = async (refreshToken) => {
+  try {
+    const refreshTokenDoc = await tokenService.verifyTokenVer2(refreshToken);
+    const user = await userService.getUserById(refreshTokenDoc.user);
+    if (!user) {
+      throw new Error();
+    }
+    return tokenService.generateTokenVer2(user.id);
+  } catch (error) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+  }
 };
 
 /**
@@ -90,4 +136,13 @@ const verifyEmail = async (verifyEmailToken) => {
   }
 };
 
-export default { loginUserWithEmailAndPassword, logout, refreshAuth, resetPassword, verifyEmail };
+export default {
+  loginUserWithUsernameAndPassword,
+  loginUserWithEmailAndPassword,
+  logoutVer2,
+  logout,
+  refreshAuthVer2,
+  refreshAuth,
+  resetPassword,
+  verifyEmail,
+};

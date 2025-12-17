@@ -6,6 +6,43 @@ import { roles } from '../config/roles.js';
 
 const userSchema = mongoose.Schema(
   {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+    },
+    hashedPassword: {
+      type: String,
+      required: true,
+    },
+    // email: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    //   lowercase: true,
+    //   trim: true,
+    // },
+    displayName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    avatarUrl: {
+      type: String, // link CDN để hiển thị hình
+    },
+    avatarId: {
+      type: String, // Cloudinary public_id để xoá hình
+    },
+    bio: {
+      type: String,
+      maxlength: 500, // tuỳ
+    },
+    phone: {
+      type: String,
+      sparse: true, // cho phép null, nhưng không được trùng
+    },
     name: {
       type: String,
       required: true,
@@ -78,7 +115,15 @@ userSchema.methods.isPasswordMatch = async function (password) {
 userSchema.pre('save', async function (next) {
   const user = this;
   if (user.isModified('password')) {
-    user.password = await bcrypt.hash(user.password, 8);
+    user.password = await bcrypt.hash(user.password, 10); // salt = 10 not 8
+  }
+  next();
+});
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+  if (user.isModified('hashedPassword')) {
+    user.password = await bcrypt.hash(user.password, 10); // salt = 10
   }
   next();
 });

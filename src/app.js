@@ -97,10 +97,11 @@ app.use(compression());
 app.use(
   cors({
     origin: [
-      'http://localhost:5001',
-      'http://localhost:5005',
       'https://maearon-todo-x.vercel.app',
+      'https://moji-realtime-chat-app.vercel.app',
       'https://moji-phi.vercel.app',
+      'http://localhost:5005',
+      'http://localhost:5173',
     ],
     credentials: true,
   }),

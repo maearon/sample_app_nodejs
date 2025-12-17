@@ -7,7 +7,7 @@ import {
   declineFriendRequest,
   getAllFriends,
   getFriendRequests,
-  getFriendSuggestions,
+  // getFriendSuggestions,
 } from '../controllers/api/friend.controller.js';
 
 const router = express.Router();
@@ -19,6 +19,6 @@ router.post('/requests/:requestId/decline', auth(), declineFriendRequest);
 
 router.get('/', auth(), getAllFriends);
 router.get('/requests', auth(), getFriendRequests);
-router.get('/suggestions', auth(), getFriendSuggestions);
+// router.get('/suggestions', auth(), getFriendSuggestions);
 
 export default router;

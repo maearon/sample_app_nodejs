@@ -8,10 +8,22 @@ import ApiError from '../utils/ApiError.js';
  * @returns {Promise<User>}
  */
 const createUser = async (userBody) => {
+  // kiểm tra username tồn tại chưa
+  const duplicate = await User.findOne({ username: userBody.username });
+  if (duplicate) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'username đã tồn tại');
+  }
   if (await User.isEmailTaken(userBody.email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email has already been taken');
   }
-  return User.create(userBody);
+  await User.create({
+    username: userBody.username,
+    hashedPassword: userBody.password,
+    email: userBody.email,
+    displayName: `${userBody.lastName} ${userBody.firstName}`,
+    name: `${userBody.firstName} ${userBody.lastName}`,
+    password: userBody.password,
+  });
 };
 
 /**
@@ -35,6 +47,15 @@ const queryUsers = async (filter, options) => {
  */
 const getUserById = async (id) => {
   return User.findById(id);
+};
+
+/**
+ * Get user by username
+ * @param {string} email
+ * @returns {Promise<User>}
+ */
+const getUserByUsername = async (username) => {
+  return User.findOne({ username });
 };
 
 /**
@@ -79,4 +100,4 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
-export default { createUser, queryUsers, getUserById, getUserByEmail, updateUserById, deleteUserById };
+export default { createUser, queryUsers, getUserById, getUserByUsername, getUserByEmail, updateUserById, deleteUserById };

@@ -1,21 +1,27 @@
+/* eslint-disable no-console */
 import Conversation from '../../models/conversation.model.js';
 import Message from '../../models/message.model.js';
-import { updateConversationAfterCreateMessage, emitNewMessage } from '../../utils/message.js';
+import { emitNewMessage, updateConversationAfterCreateMessage } from '../../utils/message.js';
+// import { io } from '../../socket/index.js';
 import { getIO } from '../../socket/index.js';
+
+const io = getIO();
 
 export const sendDirectMessage = async (req, res) => {
   try {
-    const io = getIO();
     const { recipientId, content, conversationId } = req.body;
     const senderId = req.user._id;
+
+    let conversation;
 
     if (!content) {
       return res.status(400).json({ message: 'Thiếu nội dung' });
     }
 
-    let conversation = conversationId ? await Conversation.findById(conversationId) : null;
+    if (conversationId) {
+      conversation = await Conversation.findById(conversationId);
+    }
 
-    // Tạo conversation mới
     if (!conversation) {
       conversation = await Conversation.create({
         type: 'direct',
@@ -23,8 +29,8 @@ export const sendDirectMessage = async (req, res) => {
           { userId: senderId, joinedAt: new Date() },
           { userId: recipientId, joinedAt: new Date() },
         ],
-        unreadCounts: new Map(),
         lastMessageAt: new Date(),
+        unreadCounts: new Map(),
       });
     }
 
@@ -35,29 +41,27 @@ export const sendDirectMessage = async (req, res) => {
     });
 
     updateConversationAfterCreateMessage(conversation, message, senderId);
+
     await conversation.save();
 
     emitNewMessage(io, conversation, message);
 
     return res.status(201).json({ message });
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Lỗi gửi tin nhắn direct', error);
+    console.error('Lỗi xảy ra khi gửi tin nhắn trực tiếp', error);
     return res.status(500).json({ message: 'Lỗi hệ thống' });
   }
 };
 
 export const sendGroupMessage = async (req, res) => {
-  const io = getIO();
   try {
     const { conversationId, content } = req.body;
     const senderId = req.user._id;
+    const { conversation } = req;
 
     if (!content) {
       return res.status(400).json('Thiếu nội dung');
     }
-
-    const { conversation } = req;
 
     const message = await Message.create({
       conversationId,
@@ -66,14 +70,13 @@ export const sendGroupMessage = async (req, res) => {
     });
 
     updateConversationAfterCreateMessage(conversation, message, senderId);
-    await conversation.save();
 
+    await conversation.save();
     emitNewMessage(io, conversation, message);
 
     return res.status(201).json({ message });
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Lỗi gửi tin nhắn group', error);
+    console.error('Lỗi xảy ra khi gửi tin nhắn nhóm', error);
     return res.status(500).json({ message: 'Lỗi hệ thống' });
   }
 };

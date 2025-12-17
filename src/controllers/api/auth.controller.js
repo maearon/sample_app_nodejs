@@ -3,17 +3,40 @@ import ApiError from '../../utils/ApiError.js';
 import catchAsync from '../../utils/catchAsync.js';
 import { authService, userService, tokenService, emailService } from '../../services/index.js';
 
+const REFRESH_TOKEN_TTL = 14 * 24 * 60 * 60 * 1000; // 14 ngày
+
 const register = catchAsync(async (req, res) => {
+  const { username, password, email, firstName, lastName } = req.body;
+  if (!username || !password || !email || !firstName || !lastName) {
+    return res.status(400).json({
+      message: 'Không thể thiếu username, password, email, firstName, và lastName',
+    });
+  }
   const user = await userService.createUser(req.body);
   const tokens = await tokenService.generateAuthTokens(user);
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
 
 const login = catchAsync(async (req, res) => {
-  const { email, password } = req.body;
-  const user = await authService.loginUserWithEmailAndPassword(email, password);
-  const tokens = await tokenService.generateAuthTokens(user);
-  res.send({ user, tokens });
+  // lấy inputs
+  const { username, password } = req.body;
+  // const { email, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Thiếu username hoặc password.' });
+  }
+  const user = await authService.loginUserWithUsernameAndPassword(username, password);
+  // const user = await authService.loginUserWithEmailAndPassword(email, password);
+  const { accessToken, refreshToken } = await tokenService.generateAuthTokensVer2(user);
+  // trả refresh token về trong cookie
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none', // backend, frontend deploy riêng
+    maxAge: REFRESH_TOKEN_TTL,
+  });
+  // res.send({ user, tokens });
+  // trả access token về trong res
+  return res.status(200).json({ message: `User ${user.displayName} đã logged in!`, accessToken });
 });
 
 const me = catchAsync(async (req, res) => {
@@ -24,13 +47,31 @@ const me = catchAsync(async (req, res) => {
 });
 
 const logout = catchAsync(async (req, res) => {
-  await authService.logout(req.body.refreshToken);
+  // lấy refresh token từ cookie
+  const token = req.cookies?.refreshToken;
+  if (token) {
+    // xoá refresh token trong Session
+    // await Session.deleteOne({ refreshToken: token });
+    await authService.logout(token);
+
+    // xoá cookie
+    res.clearCookie('refreshToken');
+  }
+  // await authService.logout(req.body.refreshToken);
   res.status(httpStatus.NO_CONTENT).send();
 });
 
 const refreshTokens = catchAsync(async (req, res) => {
-  const tokens = await authService.refreshAuth(req.body.refreshToken);
-  res.send({ ...tokens });
+  // lấy refresh token từ cookie
+  const token = req.cookies?.refreshToken;
+  if (!token) {
+    return res.status(httpStatus.UNAUTHORIZED).json({ message: 'Token không tồn tại.' });
+  }
+  // const tokens = await authService.refreshAuth(req.body.refreshToken);
+  const accessToken = await authService.refreshAuthVer2(token);
+  // res.send({ ...tokens });
+  // return
+  return res.status(200).json({ accessToken });
 });
 
 const forgotPassword = catchAsync(async (req, res) => {

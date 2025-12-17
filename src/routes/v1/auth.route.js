@@ -16,6 +16,11 @@ router.post('/reset-password', validate(authValidation.resetPassword), authContr
 router.post('/send-verification-email', auth(), authController.sendVerificationEmail);
 router.post('/verify-email', validate(authValidation.verifyEmail), authController.verifyEmail);
 
+router.post('/signup', validate(authValidation.register), authController.register);
+router.post('/signin', validate(authValidation.login), authController.login);
+router.post('/signout', validate(authValidation.logout), authController.logout);
+router.post('/refresh', validate(authValidation.refreshTokens), authController.refreshTokens);
+
 export default router;
 
 /**

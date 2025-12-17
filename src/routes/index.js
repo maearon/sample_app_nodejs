@@ -14,11 +14,11 @@ const router = express.Router();
 
 const defaultRoutes = [
   {
-    path: '/v1/auth',
+    path: '/api/auth',
     route: apiAuthRoute,
   },
   {
-    path: '/v1/users',
+    path: '/api/users',
     route: apiUserRoute,
   },
   {
@@ -26,15 +26,15 @@ const defaultRoutes = [
     route: root,
   },
   {
-    path: '/v1/friends',
+    path: '/api/friends',
     route: apiFriendRoute,
   },
   {
-    path: '/v1/messages',
+    path: '/api/messages',
     route: apiMessageRoute,
   },
   {
-    path: '/v1/conversations',
+    path: '/api/conversations',
     route: apiConversationRoute,
   },
   {
