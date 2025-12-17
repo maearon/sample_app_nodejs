@@ -5,9 +5,8 @@ import { emitNewMessage, updateConversationAfterCreateMessage } from '../../util
 // import { io } from '../../socket/index.js';
 import { getIO } from '../../socket/index.js';
 
-const io = getIO();
-
 export const sendDirectMessage = async (req, res) => {
+  const io = getIO();
   try {
     const { recipientId, content, conversationId } = req.body;
     const senderId = req.user._id;
@@ -54,6 +53,7 @@ export const sendDirectMessage = async (req, res) => {
 };
 
 export const sendGroupMessage = async (req, res) => {
+  const io = getIO();
   try {
     const { conversationId, content } = req.body;
     const senderId = req.user._id;

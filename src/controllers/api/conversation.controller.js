@@ -5,9 +5,8 @@ import Message from '../../models/message.model.js';
 // eslint-disable-next-line import/no-cycle
 import { getIO } from '../../socket/index.js';
 
-const io = getIO();
-
 export const createConversation = async (req, res) => {
+  const io = getIO();
   try {
     const { type, name, memberIds } = req.body;
     const userId = req.user._id;
@@ -176,6 +175,7 @@ export const getUserConversationsForSocketIO = async (userId) => {
 };
 
 export const markAsSeen = async (req, res) => {
+  const io = getIO();
   try {
     const { conversationId } = req.params;
     const userId = req.user._id.toString();
