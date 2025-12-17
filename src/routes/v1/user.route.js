@@ -6,6 +6,9 @@ import userController from '../../controllers/api/user.controller.js';
 
 const router = express.Router();
 
+router.get('/me', auth(), userController.authMe);
+router.get('/search', auth(), userController.searchUserByUsername);
+
 router
   .route('/')
   .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
@@ -16,9 +19,6 @@ router
   .get(auth('getUsers'), validate(userValidation.getUser), userController.getUser)
   .patch(auth('manageUsers'), validate(userValidation.updateUser), userController.updateUser)
   .delete(auth('manageUsers'), validate(userValidation.deleteUser), userController.deleteUser);
-
-router.get('/me', auth(), userController.authMe);
-router.get('/search', auth(), userController.searchUserByUsername);
 
 export default router;
 

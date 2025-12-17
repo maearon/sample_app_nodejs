@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
 import httpStatus from 'http-status';
+import crypto from 'crypto';
 import config from '../config/config.js';
 import userService from './user.service.js';
 import { Session, Token } from '../models/index.js';

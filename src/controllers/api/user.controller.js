@@ -8,7 +8,7 @@ import User from '../../models/user.model.js';
 
 export const authMe = async (req, res) => {
   if (!req.user) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate 2');
   }
   try {
     const { user } = req; // lấy từ authMiddleware

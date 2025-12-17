@@ -41,7 +41,7 @@ const login = catchAsync(async (req, res) => {
 
 const me = catchAsync(async (req, res) => {
   if (!req.user) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate 2');
   }
   res.send(req.user);
 });
@@ -52,7 +52,7 @@ const logout = catchAsync(async (req, res) => {
   if (token) {
     // xoá refresh token trong Session
     // await Session.deleteOne({ refreshToken: token });
-    await authService.logout(token);
+    await authService.logoutVer2(token);
 
     // xoá cookie
     res.clearCookie('refreshToken');

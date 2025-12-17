@@ -68,13 +68,13 @@ const logout = async (refreshToken) => {
 const refreshAuthVer2 = async (refreshToken) => {
   try {
     const refreshTokenDoc = await tokenService.verifyTokenVer2(refreshToken);
-    const user = await userService.getUserById(refreshTokenDoc.user);
+    const user = await userService.getUserById(refreshTokenDoc.userId);
     if (!user) {
       throw new Error();
     }
     return tokenService.generateTokenVer2(user.id);
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate 3');
   }
 };
 
@@ -86,14 +86,14 @@ const refreshAuthVer2 = async (refreshToken) => {
 const refreshAuth = async (refreshToken) => {
   try {
     const refreshTokenDoc = await tokenService.verifyToken(refreshToken, tokenTypes.REFRESH);
-    const user = await userService.getUserById(refreshTokenDoc.user);
+    const user = await userService.getUserById(refreshTokenDoc.userId);
     if (!user) {
       throw new Error();
     }
     await refreshTokenDoc.deleteOne();
     return tokenService.generateAuthTokens(user);
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate 3');
   }
 };
 
@@ -106,7 +106,7 @@ const refreshAuth = async (refreshToken) => {
 const resetPassword = async (resetPasswordToken, newPassword) => {
   try {
     const resetPasswordTokenDoc = await tokenService.verifyToken(resetPasswordToken, tokenTypes.RESET_PASSWORD);
-    const user = await userService.getUserById(resetPasswordTokenDoc.user);
+    const user = await userService.getUserById(resetPasswordTokenDoc.userId);
     if (!user) {
       throw new Error();
     }
