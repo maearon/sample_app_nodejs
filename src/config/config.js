@@ -64,4 +64,5 @@ export default {
     },
     from: envVars.EMAIL_FROM,
   },
+  clientUrl: envVars.CLIENT_URL || 'http://localhost:5005',
 };
