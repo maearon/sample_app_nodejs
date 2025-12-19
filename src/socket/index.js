@@ -19,6 +19,7 @@ export function initSocket(server) {
       origin: [
         'https://moji-realtime-chat-app.vercel.app',
         'https://moji-phi.vercel.app',
+        'https://bookbug.vercel.app',
         'http://localhost:5005',
         'http://localhost:5173',
       ],
