@@ -72,12 +72,19 @@ export const createConversation = async (req, res) => {
 
     const formatted = { ...conversation.toObject(), participants };
 
-    if (type === 'group') {
-      // eslint-disable-next-line no-shadow
-      memberIds.forEach((userId) => {
-        io.to(userId).emit('new-group', formatted);
-      });
-    }
+    // if (type === 'group') {
+    //   // eslint-disable-next-line no-shadow
+    //   memberIds.forEach((userId) => {
+    //     io.to(userId).emit('new-group', formatted);
+    //   });
+    // }
+
+    // emit realtime cho TẤT CẢ participants
+    const participantIds = conversation.participants.map((p) => p.userId._id.toString());
+
+    participantIds.forEach((uid) => {
+      io.to(uid).emit(conversation.type === 'group' ? 'new-group' : 'new-direct', formatted);
+    });
 
     return res.status(201).json({ conversation: formatted });
   } catch (error) {
@@ -207,21 +214,33 @@ export const markAsSeen = async (req, res) => {
       },
     );
 
-    io.to(conversationId).emit('read-message', {
-      conversation: updated,
-      lastMessage: {
-        _id: updated?.lastMessage._id,
-        content: updated?.lastMessage.content,
-        createdAt: updated?.lastMessage.createdAt,
-        sender: {
-          _id: updated?.lastMessage.senderId,
+    // io.to(conversationId).emit('read-message', {
+    //   conversation: updated,
+    //   lastMessage: {
+    //     _id: updated?.lastMessage._id,
+    //     content: updated?.lastMessage.content,
+    //     createdAt: updated?.lastMessage.createdAt,
+    //     sender: {
+    //       _id: updated?.lastMessage.senderId,
+    //     },
+    //   },
+    // });
+
+    conversation.participants.forEach((p) => {
+      io.to(p.userId.toString()).emit('read-message', {
+        conversation: updated,
+        lastMessage: {
+          _id: updated.lastMessage._id,
+          content: updated.lastMessage.content,
+          createdAt: updated.lastMessage.createdAt,
+          sender: { _id: updated.lastMessage.senderId },
         },
-      },
+      });
     });
 
     return res.status(200).json({
       message: 'Marked as seen',
-      seenBy: updated?.sennBy || [],
+      seenBy: updated?.seenBy || [],
       myUnreadCount: updated?.unreadCounts[userId] || 0,
     });
   } catch (error) {
