@@ -50,6 +50,14 @@ export function initSocket(server) {
 
     socket.join(user._id.toString());
 
+    socket.on('typing', ({ conversationId, isTyping }) => {
+      socket.to(conversationId).emit('user-typing', {
+        conversationId,
+        userId: user._id,
+        isTyping,
+      });
+    });
+
     socket.on('disconnect', () => {
       onlineUsers.delete(user._id);
       io.emit('online-users', Array.from(onlineUsers.keys()));
