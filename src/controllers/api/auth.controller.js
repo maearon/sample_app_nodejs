@@ -13,7 +13,12 @@ const register = catchAsync(async (req, res) => {
     });
   }
   const user = await userService.createUser(req.body);
-  const tokens = await tokenService.generateAuthTokensVer2(user);
+  const ipAddress = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress;
+  const userAgent = req.headers['user-agent'];
+  const tokens = await tokenService.generateAuthTokensVer2(user, {
+    ipAddress,
+    userAgent,
+  });
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
 
@@ -25,7 +30,12 @@ const login = catchAsync(async (req, res) => {
     return res.status(400).json({ message: 'Thiếu username/email/phone/ID hoặc password.' });
   }
   const user = await authService.loginWithIdentifier(identifier, password);
-  const { accessToken, refreshToken } = await tokenService.generateAuthTokensVer2(user);
+  const ipAddress = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress;
+  const userAgent = req.headers['user-agent'];
+  const { accessToken, refreshToken } = await tokenService.generateAuthTokensVer2(user, {
+    ipAddress,
+    userAgent,
+  });
   // trả refresh token về trong cookie
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,

@@ -106,7 +106,7 @@ const verifyToken = async (token, type) => {
  * @param {User} user
  * @returns {Promise<Object>}
  */
-const generateAuthTokensVer2 = async (user) => {
+const generateAuthTokensVer2 = async (user, { ipAddress, userAgent } = {}) => {
   // const accessTokenExpires = moment().add(config.jwt.accessExpirationMinutes, 'minutes');
   // const accessToken = generateToken(user.id, accessTokenExpires, tokenTypes.ACCESS);
 
@@ -137,6 +137,8 @@ const generateAuthTokensVer2 = async (user) => {
   await Session.create({
     userId: user._id,
     refreshToken,
+    ipAddress,
+    userAgent,
     expiresAt: new Date(Date.now() + REFRESH_TOKEN_TTL),
   });
   return { accessToken, refreshToken };
