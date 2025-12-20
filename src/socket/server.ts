@@ -15,7 +15,7 @@ const prisma = new PrismaClient();
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN?.split(',') || ['http://localhost:5005', 'https://moji-phi.vercel.app', 'https://bookbug.vercel.app'],
+  origin: process.env.CORS_ORIGIN?.split(',') || ['http://localhost:5005', 'https://moji-phi.vercel.app', 'https://bugbook-messenger.vercel.app'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-requested-with']
