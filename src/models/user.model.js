@@ -13,10 +13,10 @@ const userSchema = mongoose.Schema(
       trim: true,
       lowercase: true,
     },
-    hashedPassword: {
-      type: String,
-      required: true,
-    },
+    // hashedPassword: {
+    //   type: String,
+    //   required: true,
+    // },
     // email: {
     //   type: String,
     //   required: true,
@@ -120,13 +120,13 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-userSchema.pre('save', async function (next) {
-  const user = this;
-  if (user.isModified('hashedPassword')) {
-    user.password = await bcrypt.hash(user.password, 10); // salt = 10
-  }
-  next();
-});
+// userSchema.pre('save', async function (next) {
+//   const user = this;
+//   if (user.isModified('hashedPassword')) {
+//     user.password = await bcrypt.hash(user.hashedPassword, 10); // salt = 10
+//   }
+//   next();
+// });
 
 /**
  * @typedef User

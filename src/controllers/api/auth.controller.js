@@ -13,19 +13,18 @@ const register = catchAsync(async (req, res) => {
     });
   }
   const user = await userService.createUser(req.body);
-  const tokens = await tokenService.generateAuthTokens(user);
+  const tokens = await tokenService.generateAuthTokensVer2(user);
   res.status(httpStatus.CREATED).send({ user, tokens });
 });
 
 const login = catchAsync(async (req, res) => {
   // lấy inputs
-  const { username, password } = req.body;
+  const { identifier, password } = req.body;
   // const { email, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Thiếu username hoặc password.' });
+  if (!identifier || !password) {
+    return res.status(400).json({ message: 'Thiếu username/email/phone/ID hoặc password.' });
   }
-  const user = await authService.loginUserWithUsernameAndPassword(username, password);
-  // const user = await authService.loginUserWithEmailAndPassword(email, password);
+  const user = await authService.loginWithIdentifier(identifier, password);
   const { accessToken, refreshToken } = await tokenService.generateAuthTokensVer2(user);
   // trả refresh token về trong cookie
   res.cookie('refreshToken', refreshToken, {

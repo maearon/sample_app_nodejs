@@ -8,6 +8,42 @@ import { tokenTypes } from '../config/tokens.js';
 
 /**
  * Login with username and password
+ * @param {string} identifier
+ * @param {string} password
+ * @returns {Promise<User>}
+ */
+const loginWithIdentifier = async (identifier, password) => {
+  let user;
+
+  // 1️⃣ Email
+  if (identifier.includes('@')) {
+    user = await userService.getUserByEmail(identifier);
+  }
+
+  // 2️⃣ Phone (số)
+  // else if (/^\+?\d{9,15}$/.test(identifier)) {
+  //   user = await userService.getUserByUsernam(identifier);
+  // }
+
+  // 3️⃣ Username
+  else {
+    user = await userService.getUserByUsername(identifier);
+  }
+
+  // 4 ID
+  // else {
+  //   user = await userService.getUserById(identifier);
+  // }
+
+  if (!user || !(await user.isPasswordMatch(password))) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect identifier or password');
+  }
+
+  return user;
+};
+
+/**
+ * Login with username and password
  * @param {string} username
  * @param {string} password
  * @returns {Promise<User>}
@@ -137,6 +173,7 @@ const verifyEmail = async (verifyEmailToken) => {
 };
 
 export default {
+  loginWithIdentifier,
   loginUserWithUsernameAndPassword,
   loginUserWithEmailAndPassword,
   logoutVer2,
