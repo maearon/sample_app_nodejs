@@ -4,6 +4,7 @@ import pick from '../../utils/pick.js';
 import ApiError from '../../utils/ApiError.js';
 import catchAsync from '../../utils/catchAsync.js';
 import { userService } from '../../services/index.js';
+import { uploadImageFromBuffer } from '../../middlewares/upload.js';
 import User from '../../models/user.model.js';
 
 export const authMe = async (req, res) => {
@@ -19,6 +20,39 @@ export const authMe = async (req, res) => {
   } catch (error) {
     console.error('Lỗi khi gọi authMe', error);
     return res.status(500).json({ message: 'Lỗi hệ thống' });
+  }
+};
+
+export const uploadAvatar = async (req, res) => {
+  try {
+    const { file } = req;
+    const userId = req.user._id;
+
+    if (!file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const result = await uploadImageFromBuffer(file.buffer);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        avatarUrl: result.secure_url,
+        avatarId: result.public_id,
+      },
+      {
+        new: true,
+      },
+    ).select('avatarUrl');
+
+    if (!updatedUser.avatarUrl) {
+      return res.status(400).json({ message: 'Avatar trả về null' });
+    }
+
+    return res.status(200).json({ avatarUrl: updatedUser.avatarUrl });
+  } catch (error) {
+    console.error('Lỗi xảy ra khi upload avatar', error);
+    return res.status(500).json({ message: 'Upload failed' });
   }
 };
 
@@ -69,4 +103,4 @@ const deleteUser = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-export default { authMe, searchUserByUsername, createUser, getUsers, getUser, updateUser, deleteUser };
+export default { authMe, uploadAvatar, searchUserByUsername, createUser, getUsers, getUser, updateUser, deleteUser };

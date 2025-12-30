@@ -3,11 +3,13 @@ import auth from '../../middlewares/auth.js';
 import validate from '../../middlewares/validate.js';
 import userValidation from '../../validations/user.validation.js';
 import userController from '../../controllers/api/user.controller.js';
+import { upload } from '../../middlewares/upload.js';
 
 const router = express.Router();
 
 router.get('/me', auth(), userController.authMe);
 router.get('/search', auth(), userController.searchUserByUsername);
+router.post('/uploadAvatar', upload.single('file'), userController.uploadAvatar);
 
 router
   .route('/')

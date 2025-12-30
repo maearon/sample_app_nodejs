@@ -12,6 +12,7 @@ import cors from 'cors';
 import passport from 'passport';
 import httpStatus from 'http-status';
 import expressLayouts from 'express-ejs-layouts';
+import { v2 as cloudinary } from 'cloudinary';
 import config from './config/config.js';
 import morgan from './config/morgan.js';
 import { jwtStrategy } from './config/passport.js';
@@ -107,6 +108,13 @@ app.use(
     credentials: true,
   }),
 );
+
+// CLOUDINARY Configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // jwt authentication
 app.use(passport.initialize());
