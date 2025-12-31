@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/me', auth(), userController.authMe);
 router.get('/search', auth(), userController.searchUserByUsername);
-router.post('/uploadAvatar', upload.single('file'), userController.uploadAvatar);
+router.post('/uploadAvatar', auth(), upload.single('file'), userController.uploadAvatar);
 
 router
   .route('/')
